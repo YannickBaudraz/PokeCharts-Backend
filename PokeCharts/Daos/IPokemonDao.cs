@@ -4,7 +4,7 @@ namespace PokeCharts.Daos;
 
 public interface IPokemonDao
 {
-    Pokemon GetPokemon(int id);
-    Pokemon GetPokemon(string name);
-    List<Pokemon> GetPokemons();
+    Pokemon Get(int id);
+    Pokemon Get(string name);
+    List<Pokemon> Get();
 }

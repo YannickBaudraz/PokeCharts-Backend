@@ -4,15 +4,15 @@ namespace PokeCharts.Daos;
 
 public class PokemonDao : IPokemonDao
 {
-    public Pokemon GetPokemon(int id)
+    public Pokemon Get(int id)
     {
         throw new NotImplementedException();
     }
-    public Pokemon GetPokemon(string name)
+    public Pokemon Get(string name)
     {
         throw new NotImplementedException();
     }
-    public List<Pokemon> GetPokemons()
+    public List<Pokemon> Get()
     {
         throw new NotImplementedException();
     }

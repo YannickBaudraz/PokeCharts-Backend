@@ -21,4 +21,14 @@
       <ProjectReference Include="..\PokeCharts\PokeCharts.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Resources\simple_query.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\GraphQlQueries\SimpleQuery.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
 </Project>

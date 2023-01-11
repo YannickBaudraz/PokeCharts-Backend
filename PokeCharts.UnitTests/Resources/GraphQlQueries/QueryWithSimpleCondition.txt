@@ -1,0 +1,1 @@
+query allOfSpecificType{pokemon_v2_type(where:{name:{_eq:"poison"}}){name pokemon_v2_pokemontypes{pokemon_v2_pokemon{name id }}}}

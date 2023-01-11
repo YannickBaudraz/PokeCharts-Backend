@@ -4,13 +4,13 @@ namespace PokeCharts.UnitTests.Helpers;
 
 public static class ResourceTestHelper
 {
-    internal static string GetGraphQlQueryResource(string name)
+    internal static string GetGraphQlQuery(string fileName)
     {
-        var queryResourcePath = $"GraphQlQueries.{name}";
-        return GetResource(queryResourcePath);
+        var queryResourcePath = $"GraphQlQueries.{fileName}";
+        return GetResourceContent(queryResourcePath);
     }
 
-    private static string GetResource(string resourcePath)
+    private static string GetResourceContent(string resourcePath)
     {
         var resourceFullPath = $"PokeCharts.UnitTests.Resources.{resourcePath}";
         Stream resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceFullPath)

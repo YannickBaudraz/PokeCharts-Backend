@@ -29,6 +29,10 @@
       <EmbeddedResource Include="Resources\GraphQlQueries\SimpleQuery.txt">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
+      <None Remove="Resources\GraphQlQueries\QueryWithSimpleCondition.txt" />
+      <EmbeddedResource Include="Resources\GraphQlQueries\QueryWithSimpleCondition.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>

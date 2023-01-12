@@ -1,16 +1,16 @@
-using PokeCharts.Models;
-using PokeCharts.Daos;
-//using PokeCharts.Controllers;
+using Microsoft.VisualBasic;
 using Moq;
 using PokeCharts.Controllers;
+using PokeCharts.Daos;
+using PokeCharts.Models;
 
-namespace PokeCharts.UnitTests;
+namespace PokeCharts.UnitTests.Controllers;
 
-public class PokemonControllerUnitTests
+public class PokemonControllerTest
 {
     PokemonsController pokemonsController;
     Mock<IPokemonDao> pokemonDaoMock;
-    
+
     [SetUp]
     public void OneTimeSetUp()
     {
@@ -22,34 +22,49 @@ public class PokemonControllerUnitTests
     public void GetAllNominalCaseSuccess()
     {
         //given
+        Stats stats = new(1, 2, 3, 4, 5, 6);
         List<Pokemon> pokemons = new()
         {
-            new Pokemon(1, "squirtle", 7, 69, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"),
-            new Pokemon(4, "charmander", 7, 52, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"),
-            new Pokemon(7, "squirtle", 7, 64, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png"),
-            new Pokemon(25, "pikachu", 7, 55, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png")
+            new Pokemon(1, "squirtle", 7, 69,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+                stats),
+            new Pokemon(4, "charmander", 7, 52,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+                stats),
+            new Pokemon(7, "squirtle", 7, 64,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
+                stats),
+            new Pokemon(25, "pikachu", 7, 55,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+                stats)
         };
+
         pokemonDaoMock.Setup(m => m.Get()).Returns(pokemons);
-        
+
         //when
         List<Pokemon>? results = pokemonsController.GetAll().Value;
 
         //then
         Assert.That(results, Is.EqualTo(pokemons));
     }
+
     [Test]
     public void GetNameSuccess()
     {
         //given
-        Pokemon expectedPokemon = new Pokemon(25, "pikachu", 7, 55, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png");
+        Pokemon expectedPokemon = new(25, "pikachu", 7, 55,
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+            new Stats(1, 2, 3, 4, 5, 6));
+
         pokemonDaoMock.Setup(m => m.Get("pikachu")).Returns(expectedPokemon);
-        
+
         //when
         Pokemon? results = pokemonsController.Get("pikachu").Value;
 
         //then
         Assert.That(results, Is.EqualTo(expectedPokemon));
     }
+
     [Test]
     public void GetNameException()
     {
@@ -59,11 +74,15 @@ public class PokemonControllerUnitTests
         //when & then
         Assert.Throws<Exception>(() => pokemonsController.Get("teemo"));
     }
+
     [Test]
     public void GetIdSuccess()
     {
         //given
-        Pokemon expectedPokemon = new Pokemon(25, "pikachu", 7, 55, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png");
+        Pokemon expectedPokemon = new(25, "pikachu", 7, 55,
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+            new Stats(1, 2, 3, 4, 5, 6));
+
         pokemonDaoMock.Setup(m => m.Get(25)).Returns(expectedPokemon);
 
         //when
@@ -72,6 +91,7 @@ public class PokemonControllerUnitTests
         //then
         Assert.That(results, Is.EqualTo(expectedPokemon));
     }
+
     [Test]
     public void GetIdException()
     {

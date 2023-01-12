@@ -27,11 +27,15 @@
 
     <ItemGroup>
       <EmbeddedResource Include="Resources\GraphQlQueries\SimpleQuery.txt">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
       <None Remove="Resources\GraphQlQueries\QueryWithSimpleCondition.txt" />
       <EmbeddedResource Include="Resources\GraphQlQueries\QueryWithSimpleCondition.txt">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Resources\GraphQlQueries\ComplexQuery.txt" />
+      <EmbeddedResource Include="Resources\GraphQlQueries\ComplexQuery.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>
 

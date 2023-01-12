@@ -3,32 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeCharts", "PokeCharts\PokeCharts.csproj", "{A8530CCC-877F-4503-9219-EB609F34F16F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeCharts", "PokeCharts\PokeCharts.csproj", "{A8530CCC-877F-4503-9219-EB609F34F16F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeCharts.UnitTests", "PokeCharts.UnitTests\PokeCharts.UnitTests.csproj", "{44F30379-9F5D-4B04-84F9-57F90326CD18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeCharts.UnitTests", "PokeCharts.UnitTests\PokeCharts.UnitTests.csproj", "{53DA24C3-FC64-4321-9881-43D71BFC2EA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeCharts.IntegrationTests", "PokeCharts.IntegrationTests\PokeCharts.IntegrationTests.csproj", "{59B43104-4B7D-43BD-AE86-FEBD140BDF70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeCharts.IntegrationTests", "PokeCharts.IntegrationTests\PokeCharts.IntegrationTests.csproj", "{59B43104-4B7D-43BD-AE86-FEBD140BDF70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A8530CCC-877F-4503-9219-EB609F34F16F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A8530CCC-877F-4503-9219-EB609F34F16F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8530CCC-877F-4503-9219-EB609F34F16F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8530CCC-877F-4503-9219-EB609F34F16F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44F30379-9F5D-4B04-84F9-57F90326CD18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44F30379-9F5D-4B04-84F9-57F90326CD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44F30379-9F5D-4B04-84F9-57F90326CD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44F30379-9F5D-4B04-84F9-57F90326CD18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53DA24C3-FC64-4321-9881-43D71BFC2EA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53DA24C3-FC64-4321-9881-43D71BFC2EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53DA24C3-FC64-4321-9881-43D71BFC2EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53DA24C3-FC64-4321-9881-43D71BFC2EA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59B43104-4B7D-43BD-AE86-FEBD140BDF70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59B43104-4B7D-43BD-AE86-FEBD140BDF70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59B43104-4B7D-43BD-AE86-FEBD140BDF70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59B43104-4B7D-43BD-AE86-FEBD140BDF70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6B865CC6-C701-4B70-BF27-FCEED0D483BD}
 	EndGlobalSection
 EndGlobal

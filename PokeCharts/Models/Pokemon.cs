@@ -2,11 +2,11 @@
 {
     public class Pokemon
     {
-        private int id;
-        private string name;
-        private float height;
-        private float weight;
-        private string sprite;
+        public int id { get; }
+        public string name { get;  }
+        public float height { get; }
+        public float weight { get; }
+        public string sprite { get; }
 
         public Pokemon(int id, string name, float height, float weight, string sprite)
         {
@@ -17,10 +17,6 @@
             this.sprite = sprite;
         }
 
-        public int Id { get => id; }
-        public string Name { get => name; }
-        public float Height { get => height; }
-        public float Weight { get => weight; }
-        public string Sprite { get => sprite; }
+        
     }
 }

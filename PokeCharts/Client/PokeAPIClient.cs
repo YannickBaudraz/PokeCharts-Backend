@@ -15,12 +15,27 @@ namespace Client
             _httpClient = new HttpClient();
         }
 
+        private JObject SerializeResponse(string response)
+        {
+            var responseJson = JObject.Parse(response);
+
+            if (responseJson.SelectToken("errors") != null)
+            {
+                var message = responseJson?.SelectToken("errors[0].message")?.Value<string>();
+                throw new Exception(message);
+            }
+
+
+            return responseJson;
+        }
+
         private async Task<string> Post(string query)
         {
             var content = new StringContent(query, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(_urlApi, content);
             
             // Throws an exception if the HttpResponseMessage.IsSuccessStatusCode
+            // Refer to SerializeResponse to know if there is an error in the query
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadAsStringAsync();
@@ -29,12 +44,10 @@ namespace Client
         private async Task<JObject> SubmitQuery(string requestBody)
         {
             var responseString = await Post(requestBody);
-            var responseJson = JObject.Parse(responseString);
+            var responseJson = SerializeResponse(responseString);
             
             // Throws an exception if there is an error with the query
             if (responseJson["errors"] != null){
-                // TODO write an explicit error in debug mode
-                Console.WriteLine(responseJson["errors"]);
                 throw new Exception("There was an error executing the GraphQL query.");
             }
 

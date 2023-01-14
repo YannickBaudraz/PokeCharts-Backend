@@ -51,7 +51,7 @@ namespace Client.nUnitTests
         {
             // given            /
             string query = @"query {
-                pokemon_v3_pokemon(limit: 3, order_by: {id: asc}) {
+                non_existent_field(limit: 3, order_by: {id: asc}) {
                     id
                 }
             }";
@@ -60,7 +60,7 @@ namespace Client.nUnitTests
             var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
             // Then
-            // The returned message is should contain: field "pokemon_v3_pokemon" not found in type: 'query_root'
+            // The returned message is should contain: field "non_existent_field" not found in type: 'query_root'
             Assert.IsNotNull(exception?.Message);
         }
 
@@ -84,7 +84,7 @@ namespace Client.nUnitTests
             Assert.That(GetPokemonId(result), Is.EqualTo(1));
         }
 
-                [Test]
+        [Test]
         public void Execute_simpleQuery_caseSuccess()
         {
             // given

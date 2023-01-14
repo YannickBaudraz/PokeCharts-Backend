@@ -1,11 +1,9 @@
-using NUnit.Framework;
 using Newtonsoft.Json.Linq;
-using System.Linq;
 
 namespace Client.nUnitTests
 {
 
-    //  This class tests the sending and receiving of requests to the PokeAPI
+    //  This class tests the sending and receiving of requests of the PokeAPI
     public class PokeAPIClientTest
     {
 
@@ -28,7 +26,7 @@ namespace Client.nUnitTests
             var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
             // Then
-            // The returned message should contain: not a valid graphql query
+            // The returned message will indicate that it's not a valid graphql query
             Assert.IsNotNull(exception?.Message);
         }
 
@@ -42,7 +40,7 @@ namespace Client.nUnitTests
             var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
             // Then
-            // The returned message is should contain: not a valid graphql query
+            // The returned message will indicate that it's not a valid graphql query
             Assert.IsNotNull(exception?.Message);
         }
 
@@ -60,7 +58,7 @@ namespace Client.nUnitTests
             var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
             // Then
-            // The returned message is should contain: field "non_existent_field" not found in type: 'query_root'
+            // The returned message will indicate that "non_existent_field" is not found in type: 'query_root'
             Assert.IsNotNull(exception?.Message);
         }
 

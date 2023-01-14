@@ -24,7 +24,6 @@ namespace Client
                 throw new Exception(message);
             }
 
-
             return responseJson;
         }
 
@@ -44,12 +43,6 @@ namespace Client
         {
             var responseString = await Post(requestBody);
             var responseJson = SerializeResponse(responseString);
-            
-            // Throws an exception if there is an error with the query
-            if (responseJson["errors"] != null){
-                throw new Exception("There was an error executing the GraphQL query.");
-            }
-
             return responseJson;
         }
 

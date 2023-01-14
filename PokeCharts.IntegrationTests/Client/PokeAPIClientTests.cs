@@ -46,7 +46,7 @@ namespace Client.nUnitTests
             Assert.IsNotNull(exception?.Message);
         }
 
-                [Test]
+        [Test]
         public void Execute_incorrectQuery_throwException()
         {
             // given            /

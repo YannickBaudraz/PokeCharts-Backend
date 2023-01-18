@@ -60,12 +60,6 @@ namespace Client
             return await SubmitQuery(requestBody);
         }
 
-        public async Task<JObject> Execute(string query, object variables)
-        {
-            var requestBody = JsonConvert.SerializeObject(new { query = query, variables = variables });
-            return await SubmitQuery(requestBody);
-        }
-
     }
 
 }

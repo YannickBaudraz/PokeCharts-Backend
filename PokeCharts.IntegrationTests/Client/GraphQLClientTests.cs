@@ -61,26 +61,6 @@ namespace Graph.IntegrationTests.Client;
         }
 
         [Test]
-        public void Execute_queryWithVariables_caseSuccess()
-        {
-            // given
-            var variables = new { id = "1" };
-            string query = @"
-            query GetPokemon($id: Int!) {
-                pokemon_v2_pokemon(where: {id: {_eq: $id}}) {
-                    id
-                }
-            }
-            ";
-
-            // when
-            var result = _client.Execute(query, variables).Result;
-           
-            // then
-            Assert.That(GetPokemonId(result), Is.EqualTo(1));
-        }
-
-        [Test]
         public void Execute_simpleQuery_caseSuccess()
         {
             // given

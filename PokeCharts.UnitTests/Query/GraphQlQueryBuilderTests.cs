@@ -4,7 +4,7 @@ using PokeCharts.UnitTests.Helpers;
 namespace PokeCharts.UnitTests.Query;
 
 [TestFixture]
-public class GraphQlQueryBuilderTest
+public class GraphQlQueryBuilderTests
 {
     [Test]
     public void Build_SimpleQuery_ReturnsCorrectQuery()

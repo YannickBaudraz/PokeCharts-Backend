@@ -1,13 +1,14 @@
 using Newtonsoft.Json.Linq;
+using Client;
 
-namespace Client.nUnitTests
-{
+namespace Graph.IntegrationTests.Client;
 
-    //  This class tests the sending and receiving of requests of the PokeAPI
-    public class PokeAPIClientTest
+
+    [TestFixture]
+    public class GraphQLClientTest
     {
 
-        PokeAPIClient _client = new PokeAPIClient();
+        GraphQLClient _client = new GraphQLClient();
         
         // To prove that we really received data
         protected int? GetPokemonId(JObject jsonOutput){
@@ -26,7 +27,6 @@ namespace Client.nUnitTests
             var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
             // Then
-            // The returned message will indicate that it's not a valid graphql query
             Assert.IsNotNull(exception?.Message);
         }
 
@@ -40,7 +40,6 @@ namespace Client.nUnitTests
             var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
             // Then
-            // The returned message will indicate that it's not a valid graphql query
             Assert.IsNotNull(exception?.Message);
         }
 
@@ -58,7 +57,6 @@ namespace Client.nUnitTests
             var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
             // Then
-            // The returned message will indicate that "non_existent_field" is not found in type: 'query_root'
             Assert.IsNotNull(exception?.Message);
         }
 
@@ -100,5 +98,3 @@ namespace Client.nUnitTests
         }
 
     }
-
-}

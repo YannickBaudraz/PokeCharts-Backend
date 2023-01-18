@@ -1,17 +1,25 @@
+using System.Configuration;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Client
-{
-    public class PokeAPIClient
-    {
-        private readonly HttpClient _httpClient;
-        private string _urlApi = "https://beta.pokeapi.co/graphql/v1beta";
+{   
 
-        public PokeAPIClient()
+    public class GraphQLClient
+    {   
+        private static string _api_url = "https://beta.pokeapi.co/graphql/v1beta";
+        private readonly HttpClient _httpClient;
+        
+        public GraphQLClient()
         {
+            //Configuration = configuration;
             _httpClient = new HttpClient();
+
+            if (string.IsNullOrWhiteSpace(_api_url))
+            {
+                throw new ArgumentException("GraphQLAPI is not configured");
+            }
         }
 
         private JObject SerializeResponse(string response)
@@ -30,7 +38,7 @@ namespace Client
         private async Task<string> Post(string query)
         {
             var content = new StringContent(query, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(_urlApi, content);
+            var response = await _httpClient.PostAsync(_api_url, content);
             
             // Throws an exception if the HttpResponseMessage.IsSuccessStatusCode
             // Refer to SerializeResponse to know if there is an error in the query

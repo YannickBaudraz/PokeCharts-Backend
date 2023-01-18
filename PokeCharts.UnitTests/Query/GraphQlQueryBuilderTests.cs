@@ -25,6 +25,30 @@ public class GraphQlQueryBuilderTests
     }
 
     [Test]
+    public void Build_QueryWithAliases_ReturnsCoorectQuery()
+    {
+        // Given
+        string expectedQuery = ResourceTestHelper.GetGraphQlQuery("QueryWithAliases.txt");
+        GraphQlQueryBuilder queryBuilder = new GraphQlQueryBuilder("allPokemon")
+            .Field("Pokemon:pokemon_v2_pokemon", b => b
+                .Field("Id:id")
+                .Field("Name:name")
+                .Field("Types:pokemon_v2_pokemontypes", b => b
+                    .Field("Type:pokemon_v2_type", b => b
+                        .Field("Id:id")
+                        .Field("Name:name")
+                    )
+                )
+            );
+        
+        // When
+        string query = queryBuilder.Build();
+        
+        // Then
+        Assert.That(query, Is.EqualTo(expectedQuery));
+    }
+
+    [Test]
     public void Build_QueryWithCondition_ReturnsCorrectQuery()
     {
         // Given

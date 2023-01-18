@@ -37,6 +37,14 @@
       <EmbeddedResource Include="Resources\GraphQlQueries\ComplexQuery.txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
+      <None Remove="Resources\GraphQlQueries\QueryWithAliases.txt" />
+      <EmbeddedResource Include="Resources\GraphQlQueries\QueryWithAliases.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="TypeControllerUnitTests.cs" />
     </ItemGroup>
 
 </Project>

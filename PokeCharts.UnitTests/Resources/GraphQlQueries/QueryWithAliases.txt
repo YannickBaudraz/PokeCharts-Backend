@@ -1,0 +1,1 @@
+query allPokemon{Pokemon:pokemon_v2_pokemon{Id:id Name:name Types:pokemon_v2_pokemontypes{Type:pokemon_v2_type{Id:id Name:name }}}}

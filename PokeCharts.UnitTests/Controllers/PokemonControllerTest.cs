@@ -3,6 +3,7 @@ using Moq;
 using PokeCharts.Controllers;
 using PokeCharts.Daos;
 using PokeCharts.Models;
+using Type = PokeCharts.Models.Type;
 
 namespace PokeCharts.UnitTests.Controllers;
 
@@ -23,20 +24,21 @@ public class PokemonControllerTest
     {
         //given
         Stats stats = new(1, 2, 3, 4, 5, 6);
+        Type[] types = new[] { new Type(2,"fire"), new Type(1,"water") };
         List<Pokemon> pokemons = new()
         {
             new Pokemon(1, "squirtle", 7, 69,
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-                stats),
+                stats,types),
             new Pokemon(4, "charmander", 7, 52,
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
-                stats),
+                stats,types),
             new Pokemon(7, "squirtle", 7, 64,
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
-                stats),
+                stats,types),
             new Pokemon(25, "pikachu", 7, 55,
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-                stats)
+                stats,types)
         };
 
         pokemonDaoMock.Setup(m => m.Get()).Returns(pokemons);
@@ -54,7 +56,7 @@ public class PokemonControllerTest
         //given
         Pokemon expectedPokemon = new(25, "pikachu", 7, 55,
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-            new Stats(1, 2, 3, 4, 5, 6));
+            new Stats(1, 2, 3, 4, 5, 6), new[] { new Type(2,"fire"), new Type(1,"water") });
 
         pokemonDaoMock.Setup(m => m.Get("pikachu")).Returns(expectedPokemon);
 
@@ -81,7 +83,7 @@ public class PokemonControllerTest
         //given
         Pokemon expectedPokemon = new(25, "pikachu", 7, 55,
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-            new Stats(1, 2, 3, 4, 5, 6));
+            new Stats(1, 2, 3, 4, 5, 6), new[] { new Type(2,"fire"), new Type(1,"water") });
 
         pokemonDaoMock.Setup(m => m.Get(25)).Returns(expectedPokemon);
 

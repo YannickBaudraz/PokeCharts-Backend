@@ -12,7 +12,7 @@ public class ConfigTests
     public void Setup() => _config = ConfigTestHelper.Configuration;
 
     [Test]
-    public void ConfigurationSection_OnlyInDefaultFile_NotEmpty()
+    public void Section_OnlyInDefaultFile_NotEmpty()
     {
         // Given
         const string graphQlSection = "GraphQl";
@@ -25,20 +25,7 @@ public class ConfigTests
     }
 
     [Test]
-    public void ConfigurationKey_NonExistentKey_Null()
-    {
-        // Given
-        const string nonExistentKey = "NonExistentKey";
-
-        // When
-        string? key = _config[nonExistentKey];
-
-        // Then
-        Assert.That(key, Is.Null);
-    }
-
-    [Test]
-    public void ConfigurationValue_OnlyInTestFile_ExpectedValue()
+    public void Value_OnlyInTestFile_ExpectedValue()
     {
         // Given
         const int valueOnlyInTestConfig = 443;
@@ -48,5 +35,40 @@ public class ConfigTests
 
         // Then
         Assert.That(value, Is.EqualTo(valueOnlyInTestConfig));
+    }
+
+    [Test]
+    public void LogLevels_OverrideDefault_DefaultAndOverriden()
+    {
+        // Given
+        const string logLevel = "Logging:LogLevel";
+        const string expectedNetCoreLevel = "Warning";
+        const string expectedOverridenDefaultLevel = "Error";
+
+        // When
+        IConfigurationSection logLevelSection = _config.GetSection(logLevel);
+
+        // Then
+        Assert.Multiple(() =>
+        {
+            var netCoreLevel = logLevelSection.GetValue<string>("Microsoft.AspNetCore");
+            Assert.That(netCoreLevel, Is.EqualTo(expectedNetCoreLevel));
+
+            var defaultLevel = logLevelSection.GetValue<string>("Default");
+            Assert.That(defaultLevel, Is.EqualTo(expectedOverridenDefaultLevel));
+        });
+    }
+
+    [Test]
+    public void Key_NonExistentKey_Null()
+    {
+        // Given
+        const string nonExistentKey = "NonExistentKey";
+
+        // When
+        string? key = _config[nonExistentKey];
+
+        // Then
+        Assert.That(key, Is.Null);
     }
 }

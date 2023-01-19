@@ -6,17 +6,14 @@ namespace PokeCharts.GraphQl;
 
 public class GraphQlClient
 {
-    private string _api_url = "https://pokecharts.stellate.sh";
+    private readonly string _apiUrl;
     private readonly HttpClient _httpClient;
 
-    public GraphQlClient()
+    public GraphQlClient(IConfiguration configuration)
     {
         _httpClient = new HttpClient();
-
-        if (string.IsNullOrWhiteSpace(_api_url))
-        {
-            throw new ArgumentException("GraphQLAPI is not configured");
-        }
+        _apiUrl = configuration.GetValue<string>("GraphQl:ApiUrl")
+                  ?? throw new ArgumentException("The GraphQL API URL is not configured");
     }
 
     private JObject SerializeResponse(string response)
@@ -35,7 +32,7 @@ public class GraphQlClient
     private async Task<string> Post(string query)
     {
         var content = new StringContent(query, Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync(_api_url, content);
+        var response = await _httpClient.PostAsync(_apiUrl, content);
 
         // Throws an exception if the HttpResponseMessage.IsSuccessStatusCode
         // Refer to SerializeResponse to know if there is an error in the query

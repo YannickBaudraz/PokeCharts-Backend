@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using PokeCharts.GraphQl;
 
@@ -6,12 +7,22 @@ namespace PokeCharts.IntegrationTests.GraphQl;
 [TestFixture]
 public class GraphQlClientTest
 {
-    private readonly GraphQlClient _client = new GraphQlClient();
+    private GraphQlClient _client;
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
+    {
+        IConfiguration configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        _client = new GraphQlClient(configuration);
+    }
 
     // To prove that we really received data
     private static int? GetPokemonId(JObject jsonOutput)
     {
-        var pokemons = from pokemon in jsonOutput?["data"]?["pokemon_v2_pokemon"] select pokemon;
+        var pokemons = from pokemon in jsonOutput["data"]?["pokemon_v2_pokemon"] select pokemon;
         JToken? firstPokemon = pokemons.FirstOrDefault();
         return firstPokemon?["id"]?.Value<int>();
     }

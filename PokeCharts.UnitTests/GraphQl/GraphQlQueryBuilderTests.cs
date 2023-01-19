@@ -1,7 +1,7 @@
-using PokeCharts.Query;
+using PokeCharts.GraphQl;
 using PokeCharts.UnitTests.Helpers;
 
-namespace PokeCharts.UnitTests.Query;
+namespace PokeCharts.UnitTests.GraphQl;
 
 [TestFixture]
 public class GraphQlQueryBuilderTests
@@ -40,10 +40,10 @@ public class GraphQlQueryBuilderTests
                     )
                 )
             );
-        
+
         // When
         string query = queryBuilder.Build();
-        
+
         // Then
         Assert.That(query, Is.EqualTo(expectedQuery));
     }
@@ -113,10 +113,10 @@ public class GraphQlQueryBuilderTests
                         .EndArguments()
                         .Field("name")))
             );
-        
+
         // When
         string query = queryBuilder.Build();
-        
+
         // Then
         Assert.That(query, Is.EqualTo(expectedQuery));
     }

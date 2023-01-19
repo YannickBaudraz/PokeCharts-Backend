@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace PokeCharts.Query;
+namespace PokeCharts.GraphQl;
 
 /// <summary>
 /// GraphQlQueryBuilder is a class that allows for building GraphQL queries in a fluent and readable way.

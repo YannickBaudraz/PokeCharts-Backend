@@ -6,7 +6,7 @@ namespace PokeCharts.GraphQl;
 
 public class GraphQlClient
 {
-    private static string _api_url = "https://beta.pokeapi.co/graphql/v1beta";
+    private string _api_url = "https://pokecharts.stellate.sh";
     private readonly HttpClient _httpClient;
 
     public GraphQlClient()

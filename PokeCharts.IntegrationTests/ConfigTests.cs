@@ -6,17 +6,47 @@ namespace PokeCharts.IntegrationTests;
 [TestFixture]
 public class ConfigTests
 {
+    private IConfiguration _config;
+
+    [SetUp]
+    public void Setup() => _config = ConfigTestHelper.Configuration;
+
     [Test]
-    public void Configuration_ValueOnlyInTestConfigFile_CanAccessValue()
+    public void ConfigurationSection_OnlyInDefaultFile_NotEmpty()
     {
         // Given
-        const int expectedValue = 443;
+        const string graphQlSection = "GraphQl";
 
         // When
-        IConfiguration config = ConfigTestHelper.Configuration;
+        IConfigurationSection configurationSection = _config.GetSection(graphQlSection);
 
         // Then
-        var value = config.GetValue<int>("https_port");
-        Assert.That(value, Is.EqualTo(expectedValue));
+        Assert.That(configurationSection.GetChildren(), Is.Not.Empty);
+    }
+
+    [Test]
+    public void ConfigurationKey_NonExistentKey_Null()
+    {
+        // Given
+        const string nonExistentKey = "NonExistentKey";
+
+        // When
+        string? key = _config[nonExistentKey];
+
+        // Then
+        Assert.That(key, Is.Null);
+    }
+
+    [Test]
+    public void ConfigurationValue_OnlyInTestFile_ExpectedValue()
+    {
+        // Given
+        const int valueOnlyInTestConfig = 443;
+
+        // When
+        var value = _config.GetValue<int>("https_port");
+
+        // Then
+        Assert.That(value, Is.EqualTo(valueOnlyInTestConfig));
     }
 }

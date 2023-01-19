@@ -1,4 +1,7 @@
-﻿namespace PokeCharts.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PokeCharts.Models;
 
 public record Pokemon(
     int Id,
@@ -6,5 +9,6 @@ public record Pokemon(
     float Height,
     float Weight,
     string Sprite,
-    Stats Stats
+    Stats Stats,
+    [property: MaxLength(2)] Type[] Types
 );

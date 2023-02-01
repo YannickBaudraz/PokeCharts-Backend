@@ -1,6 +1,6 @@
 using Moq;
 using PokeCharts.Controllers;
-using PokeCharts.Dao;
+using PokeCharts.Daos;
 using PokeCharts.Models;
 using Type = PokeCharts.Models.Type;
 
@@ -25,20 +25,14 @@ public class PokemonControllerTest
         //given
         Stats stats = new(1, 2, 3, 4, 5, 6);
         Type[] types = new[] { new Type(2, "fire"), new Type(1, "water") };
+        PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png");
         List<Pokemon> pokemons = new()
         {
-            new Pokemon(1, "squirtle", 7, 69,
-                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-                stats, types),
-            new Pokemon(4, "charmander", 7, 52,
-                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
-                stats, types),
-            new Pokemon(7, "squirtle", 7, 64,
-                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
-                stats, types),
-            new Pokemon(25, "pikachu", 7, 55,
-                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-                stats, types)
+            new Pokemon(1, "squirtle", 7, 69, sprites, stats, types),
+            new Pokemon(4, "charmander", 7, 52, sprites, stats, types),
+            new Pokemon(7, "squirtle", 7, 64, sprites, stats, types),
+            new Pokemon(25, "pikachu", 7, 55, sprites, stats, types)
         };
 
         _pokemonDaoMock.Setup(m => m.Get()).Returns(pokemons);
@@ -51,12 +45,39 @@ public class PokemonControllerTest
     }
 
     [Test]
+    public void GetNameSuccess()
+    {
+        //given
+        PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png");
+        Pokemon expectedPokemon = new(25, "pikachu", 7, 55, sprites, new Stats(1, 2, 3, 4, 5, 6), new[] { new Type(2, "fire"), new Type(1, "water") });
+
+        _pokemonDaoMock.Setup(m => m.Get("pikachu")).Returns(expectedPokemon);
+
+        //when
+        Pokemon? results = _pokemonsController.Get("pikachu").Value;
+        
+        //then
+        Assert.That(results, Is.EqualTo(expectedPokemon));
+    }
+
+    [Test]
+    public void GetNameException()
+    {
+        //given
+        _pokemonDaoMock.Setup(m => m.Get("teemo")).Throws(new Exception("pokemon does not exist"));
+
+        //when & then
+        Assert.Throws<Exception>(() => _pokemonsController.Get("teemo"));
+    }
+
+    [Test]
     public void GetIdSuccess()
     {
         //given
-        Pokemon expectedPokemon = new(25, "pikachu", 7, 55,
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-            new Stats(1, 2, 3, 4, 5, 6), new[] { new Type(2, "fire"), new Type(1, "water") });
+        PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png");
+        Pokemon expectedPokemon = new(25, "pikachu", 7, 55, sprites, new Stats(1, 2, 3, 4, 5, 6), new[] { new Type(2, "fire"), new Type(1, "water") });
 
         _pokemonDaoMock.Setup(m => m.Get(25)).Returns(expectedPokemon);
 

@@ -1,20 +1,39 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PokeCharts.Dao;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using PokeCharts.Daos;
+using PokeCharts.Models;
+using System.Xml.Linq;
 using Type = PokeCharts.Models.Type;
 
-namespace PokeCharts.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class TypesController : ControllerBase
+namespace PokeCharts.Controllers
 {
-    private readonly ITypeDao _typeDao;
+    [Route("[controller]")]
+    [ApiController]
+    public class TypesController : ControllerBase
+    {
+        private readonly ITypeDao _typeDao;
 
-    public TypesController(ITypeDao typeDao) => _typeDao = typeDao;
+        public TypesController(ITypeDao typeDao)
+        {
+            _typeDao = typeDao;
+        }
 
-    [HttpGet]
-    public ActionResult<List<Type>> Get() => _typeDao.Get();
+        [HttpGet]
+        public ActionResult<List<Type>> GetAll()
+        {
+            return _typeDao.Get();
+        }
 
-    [HttpGet("{id:int}")]
-    public ActionResult<Type> Get(int id) => _typeDao.Get(id);
+        [HttpGet("{id}")]
+        public ActionResult<Type> Get(int id)
+        {
+            return _typeDao.Get(id);
+        }
+
+        [HttpGet("{name}")]
+        public ActionResult<Type> Get(string name)
+        {
+            return _typeDao.Get(name);
+        }
+    }
 }

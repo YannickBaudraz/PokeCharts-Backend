@@ -8,7 +8,7 @@ public record Pokemon(
     string Name,
     float Height,
     float Weight,
-    string Sprite,
+    PokemonSprites Sprites,
     Stats Stats,
     [property: MaxLength(2)] Type[] Types
 );

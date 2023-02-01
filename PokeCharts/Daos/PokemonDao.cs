@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PokeCharts.Models;
+using System.Runtime.InteropServices;
 using Type = PokeCharts.Models.Type;
 namespace PokeCharts.Daos;
 
@@ -50,28 +51,36 @@ public class PokemonDao : IPokemonDao
     private List<Pokemon> ConvertToPokemons(JObject jsonInput)
     {
         var pokemons = from pokemon in jsonInput?["data"]?["Pokemons"] select pokemon;
-        JToken? firstPokemon = pokemons.FirstOrDefault();
-        int? id = firstPokemon?["Id"]?.Value<int>();
         List<Pokemon> output = new List<Pokemon>();
 
-        // foreach (var input in dataInput.Pokemons)
-        // {
-        //     string sprite = GetSprite(input.Sprites);
-        //     Stats stats = ConvertToStats(input.Stats);
-        //     Type[] types = ConvertToTypes(input.Types);
-        //     Pokemon? pokemon = new Pokemon(
-        //         input.Id,
-        //         input.Name,
-        //         input.Height,
-        //         input.Weight,
-        //         sprite,
-        //         stats,
-        //         types
-        //     );
-        //     output.Add(pokemon);
-        // }
+        foreach (JToken step in pokemons)
+        {
 
-        throw new NotImplementedException();
+            int pokemonId = (int)step?["Id"]!;
+            string Name = (string)step?["Name"]!;
+            float Height = (float)step?["Height"]!;
+            float Weight = (float)step?["Weight"]!;
+            string SpriteEndPoint = (string)step?["SpriteEndPoint"]?["Sprites"]!;
+            var types = from type in step?["Types"] select type;
+            List<Type> typeList = new List<Type>();
+            foreach (JToken type in types){
+                int typeId = (int)type?["Type"]?["Id"]!;
+                string typeName = (string)type?["Type"]?["Name"]!;
+                Type type1 = new Type(typeId, typeName);
+                typeList.Add(type1);
+            }
+            var stats = from stat in step?["Stats"] select stat;
+            //int [] statsList = new int[] { 0, 0, 0, 0, 0, 0 };
+            //foreach (JToken stat in stats)
+            //{
+            //    int statsId = (int)stat?["Stat"]?["Id"]!;
+            //    string statsName = (string)stat?["Stat"]?["Name"]!;
+            //}
+            //Pokemon pokemon = new Pokemon(pokemonId, Name, Height, Weight, SpriteEndPoint, statsList, typeList.ToArray());
+            //output.Add(pokemon);
+        }
+        
+        return output;
     }
     private string GetSprite(JToken jsonInput)
     {

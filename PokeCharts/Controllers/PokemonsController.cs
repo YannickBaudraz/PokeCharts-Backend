@@ -16,7 +16,7 @@ public class PokemonsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Pokemon>> GetAll()
+    public ActionResult<List<Pokemon>> Get()
     {
         return _pokemonDao.Get();
     }
@@ -24,6 +24,8 @@ public class PokemonsController : ControllerBase
     [HttpGet("{id:int}")]
     public ActionResult<Pokemon> Get(int id)
     {
-        return _pokemonDao.Get(id);
+        return _pokemonDao.Get(id) is { } pokemon
+            ? pokemon
+            : NotFound();
     }
 }

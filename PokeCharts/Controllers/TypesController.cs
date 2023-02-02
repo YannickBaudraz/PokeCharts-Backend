@@ -24,6 +24,8 @@ public class TypesController : ControllerBase
     [HttpGet("{id:int}")]
     public ActionResult<Type> Get(int id)
     {
-        return _typeDao.Get(id);
+        return _typeDao.Get(id) is { } type
+            ? type
+            : NotFound();
     }
 }

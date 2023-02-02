@@ -1,6 +1,6 @@
 using Moq;
 using PokeCharts.Controllers;
-using PokeCharts.Daos;
+using PokeCharts.Dao;
 using PokeCharts.Models;
 using Type = PokeCharts.Models.Type;
 

@@ -1,6 +1,6 @@
 ﻿using PokeCharts.Models;
 
-namespace PokeCharts.Daos;
+namespace PokeCharts.Dao;
 
 public class PokemonDao : IPokemonDao
 {
@@ -8,10 +8,7 @@ public class PokemonDao : IPokemonDao
     {
         throw new NotImplementedException();
     }
-    public Pokemon Get(string name)
-    {
-        throw new NotImplementedException();
-    }
+
     public List<Pokemon> Get()
     {
         throw new NotImplementedException();

@@ -1,4 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Mvc;
+
+[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 
 namespace PokeCharts;
 

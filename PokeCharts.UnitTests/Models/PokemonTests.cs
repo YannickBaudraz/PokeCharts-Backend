@@ -34,7 +34,6 @@ public class PokemonTests
         });
     }
 
-
     [Test]
     public void Constructor_PokemonHasMoreThanTwoTypes_ThrowException()
     {

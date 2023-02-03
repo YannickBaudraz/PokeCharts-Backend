@@ -8,16 +8,16 @@ namespace PokeCharts.UnitTests.Model;
 [TestFixture]
 public class PokemonTests 
 {
-    // Required attribute to declare a pokemon
-    int _id = 6;
-    string _name = "charizard";
-    float _height = 17;
-    float _weight = 905;
-    string _sprite = "6.png";
-    Stats _stat = new Stats(78, 84, 78, 109, 85, 100);
-    Type _firstType = new Type(10, "fire");
-    Type _secondType = new Type(3, "flying");
-    Type _thirdType = new Type(100, "poison");
+    // Required attributes to create a pokemon
+    private int _id = 6;
+    private string _name = "charizard";
+    private float _height = 17;
+    private float _weight = 905;
+    private string _sprite = "6.png";
+    private Stats _stat = new Stats(78, 84, 78, 109, 85, 100);
+    private Type _firstType = new Type(10, "fire");
+    private Type _secondType = new Type(3, "flying");
+    private Type _thirdType = new Type(100, "poison");
 
 
     [Test]

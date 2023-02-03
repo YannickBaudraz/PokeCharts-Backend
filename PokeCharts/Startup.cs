@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
+using PokeCharts.Controllers;
+using PokeCharts.Dao;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 
@@ -19,6 +21,8 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddSingleton<IPokemonDao, PokemonDao>();
+        services.AddProblemDetails();
 
         services.AddEndpointsApiExplorer()
                 .AddSwaggerGen();
@@ -30,6 +34,11 @@ public class Startup
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler(ErrorController.BaseRoute);
         }
 
         app.UseHttpsRedirection();

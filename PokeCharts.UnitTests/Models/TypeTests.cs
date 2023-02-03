@@ -1,5 +1,7 @@
 using Type = PokeCharts.Models.Type;
 
+namespace PokeCharts.UnitTests.Model;
+
 [TestFixture]
 public class TypeTests
 {   

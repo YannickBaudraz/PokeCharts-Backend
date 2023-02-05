@@ -14,9 +14,14 @@ public class Startup
     {
         services.AddSingleton<IPokemonDao, PokemonDao>()
                 .AddSingleton<IModelExceptionHandler, MultipleModelExceptionHandlers>()
-                .AddSingleton<ModelExceptionFilterAttribute>();
+                .AddSingleton<ModelExceptionFilterAttribute>()
+                .AddSingleton<SystemExceptionFilterAttribute>();
 
-        services.AddControllers(options => { options.Filters.AddService(typeof(ModelExceptionFilterAttribute)); });
+        services.AddControllers(options =>
+        {
+            options.Filters.AddService(typeof(ModelExceptionFilterAttribute));
+            options.Filters.AddService(typeof(SystemExceptionFilterAttribute));
+        });
 
         services.AddProblemDetails();
 

@@ -21,6 +21,13 @@ public static class ProblemDetails
         );
     }
 
+    public static Microsoft.AspNetCore.Mvc.ProblemDetails From(ExceptionContext context, HttpStatusCode statusCode, string type)
+    {
+        Microsoft.AspNetCore.Mvc.ProblemDetails problemDetails = From(context, statusCode);
+        problemDetails.Type = type;
+        return problemDetails;
+    }
+
     private static string GetTitle(Exception modelException)
     {
         string exceptionNameWithoutSuffix = modelException.GetType().Name[..^"Exception".Length];

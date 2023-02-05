@@ -1,7 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PokeCharts.Controllers;
 using PokeCharts.Dao;
+using PokeCharts.Filters;
+using PokeCharts.Handlers.Exceptions;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 
@@ -9,19 +10,14 @@ namespace PokeCharts;
 
 public class Startup
 {
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
-
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public IConfiguration Configuration { get; }
-
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers();
-        services.AddSingleton<IPokemonDao, PokemonDao>();
+        services.AddSingleton<IPokemonDao, PokemonDao>()
+                .AddSingleton<IModelExceptionHandler, MultipleModelExceptionHandlers>()
+                .AddSingleton<ModelExceptionFilterAttribute>();
+
+        services.AddControllers(options => { options.Filters.AddService(typeof(ModelExceptionFilterAttribute)); });
+
         services.AddProblemDetails();
 
         services.AddEndpointsApiExplorer()

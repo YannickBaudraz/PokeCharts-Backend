@@ -9,5 +9,5 @@ public class ErrorController : ControllerBase
     public const string BaseRoute = "/error";
 
     [HttpGet]
-    public IActionResult HandleError() => Problem();
+    public ActionResult<ProblemDetails> HandleError() => Problem();
 }

@@ -1,6 +1,8 @@
 using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.OpenApi.Extensions;
 using PokeCharts.Constants;
 
 namespace PokeCharts.Extensions;
@@ -9,8 +11,6 @@ public static class ProblemDetails
 {
     public static Microsoft.AspNetCore.Mvc.ProblemDetails From(ExceptionContext context, HttpStatusCode statusCode)
     {
-        if (context is null) throw new ArgumentNullException(nameof(context));
-
         var problemDetailsFactory = context.HttpContext.RequestServices.GetRequiredService<ProblemDetailsFactory>();
         return problemDetailsFactory.CreateProblemDetails(
             context.HttpContext,
@@ -21,17 +21,40 @@ public static class ProblemDetails
         );
     }
 
-    public static Microsoft.AspNetCore.Mvc.ProblemDetails From(ExceptionContext context, HttpStatusCode statusCode, string type)
+
+    public static Microsoft.AspNetCore.Mvc.ProblemDetails? From(StatusCodeContext statusCodeContext)
     {
-        Microsoft.AspNetCore.Mvc.ProblemDetails problemDetails = From(context, statusCode);
-        problemDetails.Type = type;
-        return problemDetails;
+        int responseStatusCode = statusCodeContext.HttpContext.Response.StatusCode;
+        if (responseStatusCode is < 400 or >= 600)
+            return null;
+
+        HttpContext httpContext = statusCodeContext.HttpContext;
+
+        var problemDetailsFactory = httpContext.RequestServices.GetRequiredService<ProblemDetailsFactory>();
+        return problemDetailsFactory.CreateProblemDetails(
+            httpContext,
+            statusCode: responseStatusCode,
+            title: GetTitle(responseStatusCode),
+            instance: httpContext.Request.Path
+        );
+    }
+
+    private static string GetTitle(int responseStatusCode)
+    {
+        var statusCode = (HttpStatusCode)responseStatusCode;
+        string statusName = statusCode.GetDisplayName();
+        return SplitPascalCaseToSpaced(statusName);
     }
 
     private static string GetTitle(Exception modelException)
     {
         string exceptionNameWithoutSuffix = modelException.GetType().Name[..^"Exception".Length];
-        string[] words = Regexps.CamelCaseRegex().Split(exceptionNameWithoutSuffix);
+        return SplitPascalCaseToSpaced(exceptionNameWithoutSuffix);
+    }
+
+    private static string SplitPascalCaseToSpaced(string nameWithoutSpaces)
+    {
+        string[] words = Regexps.PascalCaseRegex().Split(nameWithoutSpaces);
         return string.Join(" ", words);
     }
 }

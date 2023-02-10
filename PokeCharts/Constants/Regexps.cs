@@ -5,5 +5,5 @@ namespace PokeCharts.Constants;
 public static partial class Regexps
 {
     [GeneratedRegex("(?<!^)(?=[A-Z])")]
-    public static partial Regex CamelCaseRegex();
+    public static partial Regex PascalCaseRegex();
 }

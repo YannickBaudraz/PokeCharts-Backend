@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PokeCharts.Daos;
+using PokeCharts.Dao;
 using PokeCharts.Models;
 
 namespace PokeCharts.Controllers;
@@ -16,20 +16,8 @@ public class PokemonsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Pokemon>> GetAll()
-    {
-        return _pokemonDao.Get();
-    }
+    public ActionResult<List<Pokemon>> Get() => _pokemonDao.Get();
 
     [HttpGet("{id:int}")]
-    public ActionResult<Pokemon> Get(int id)
-    {
-        return _pokemonDao.Get(id);
-    }
-
-    [HttpGet("{name}")]
-    public ActionResult<Pokemon> Get(string name)
-    {
-        return _pokemonDao.Get(name);
-    }
+    public ActionResult<Pokemon> Get(int id) => _pokemonDao.Get(id);
 }

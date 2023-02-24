@@ -2,6 +2,7 @@ using Type = PokeCharts.Models.Type;
 using Pokemon = PokeCharts.Models.Pokemon;
 using Stats = PokeCharts.Models.Stats;
 
+
 namespace PokeCharts.UnitTests.Model;
 
 
@@ -35,6 +36,21 @@ public class PokemonTests
     }
 
     [Test]
+    public void Constructor_PokemonHasNoType_ThrowException()
+    {
+        // Given
+        // Refer to class attributes
+        Type[] pokemonTypes = {};
+
+        // When 
+        // Then
+
+        Assert.Throws<ArgumentException>(() => {
+            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprite, _stat, pokemonTypes);
+        });
+    }
+
+    [Test]
     public void Constructor_PokemonHasMoreThanTwoTypes_ThrowException()
     {
         // Given
@@ -43,7 +59,8 @@ public class PokemonTests
 
         // When 
         // Then
-        Assert.Throws<Exception>(() => {
+
+        Assert.Throws<ArgumentException>(() => {
             Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprite, _stat, pokemonTypes);
         });
     }

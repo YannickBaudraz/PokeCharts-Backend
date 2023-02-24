@@ -36,7 +36,7 @@ public class PokemonTests
     }
 
     [Test]
-    public void Constructor_PokemonHasNoType_ThrowException()
+    public void Constructor_PokemonHasNoType_ThrowsException()
     {
         // Given
         // Refer to class attributes
@@ -51,7 +51,7 @@ public class PokemonTests
     }
 
     [Test]
-    public void Constructor_PokemonHasMoreThanTwoTypes_ThrowException()
+    public void Constructor_PokemonHasMoreThanTwoTypes_ThrowsException()
     {
         // Given
         // Refer to class attributes

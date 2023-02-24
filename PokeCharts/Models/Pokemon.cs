@@ -2,7 +2,7 @@
 
 namespace PokeCharts.Models;
 
-public class Pokemon
+public record Pokemon
 {
     public int Id { get; }
     public string Name { get; }

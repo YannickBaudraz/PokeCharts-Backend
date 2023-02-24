@@ -20,4 +20,8 @@ public class PokemonsController : ControllerBase
 
     [HttpGet("{id:int}")]
     public ActionResult<Pokemon> Get(int id) => _pokemonDao.Get(id);
+
+    [HttpGet("{name}")]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+    public ActionResult<Pokemon> Get(string name) => throw new NotImplementedException();
 }

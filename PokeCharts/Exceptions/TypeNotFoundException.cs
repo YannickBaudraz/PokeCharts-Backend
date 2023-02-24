@@ -1,12 +1,13 @@
 using System.Runtime.Serialization;
+using PokeCharts.Models;
 
 namespace PokeCharts.Exceptions;
 
 [Serializable]
 public class TypeNotFoundException : ModelException
 {
-    public TypeNotFoundException(int id)
-        : base($"The Type with the id [{id}] was not found")
+    public TypeNotFoundException(ModelReference reference)
+        : base($"The Type with the {reference.Parameter} [{reference.Id}] was not found")
     {
     }
 

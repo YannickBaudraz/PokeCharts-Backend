@@ -17,4 +17,8 @@ public class TypesController : ControllerBase
 
     [HttpGet("{id:int}")]
     public ActionResult<Type> Get(int id) => _typeDao.Get(id);
+
+    [HttpGet("{name}")]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+    public ActionResult<Type> Get(string name) => throw new NotImplementedException();
 }

@@ -1,4 +1,4 @@
-﻿﻿using PokeCharts.GraphQl;
+﻿﻿﻿using PokeCharts.GraphQl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PokeCharts.Models;

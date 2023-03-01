@@ -1,6 +1,7 @@
-﻿using Type = PokeCharts.Models.Type;
+﻿using PokeCharts.Models;
+using Type = PokeCharts.Models.Type;
 
-namespace PokeCharts.Dao;
+namespace PokeCharts.Daos;
 
 public class TypeDao : ITypeDao
 {
@@ -8,7 +9,10 @@ public class TypeDao : ITypeDao
     {
         throw new NotImplementedException();
     }
-
+    public Type Get(string name)
+    {
+        throw new NotImplementedException();
+    }
     public List<Type> Get()
     {
         throw new NotImplementedException();

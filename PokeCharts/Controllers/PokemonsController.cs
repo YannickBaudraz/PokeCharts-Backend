@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PokeCharts.Dao;
+using PokeCharts.Daos;
 using PokeCharts.Models;
 
 namespace PokeCharts.Controllers;
@@ -23,5 +23,5 @@ public class PokemonsController : ControllerBase
 
     [HttpGet("{name}")]
     [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-    public ActionResult<Pokemon> Get(string name) => throw new NotImplementedException();
+    public ActionResult<Pokemon> Get(string name) => _pokemonDao.Get(name);
 }

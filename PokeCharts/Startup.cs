@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PokeCharts.Controllers;
-using PokeCharts.Dao;
+using PokeCharts.Daos;
 using PokeCharts.Filters;
 using PokeCharts.Handlers.Exceptions;
 

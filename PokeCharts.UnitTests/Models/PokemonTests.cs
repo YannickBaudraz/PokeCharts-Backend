@@ -1,7 +1,7 @@
 using Type = PokeCharts.Models.Type;
 using Pokemon = PokeCharts.Models.Pokemon;
 using Stats = PokeCharts.Models.Stats;
-
+using PokemonSprites = PokeCharts.Models.PokemonSprites;
 
 namespace PokeCharts.UnitTests.Model;
 
@@ -14,7 +14,7 @@ public class PokemonTests
     private string _name = "charizard";
     private float _height = 17;
     private float _weight = 905;
-    private string _sprite = "6.png";
+    private PokemonSprites _sprites = new PokemonSprites("25.png", "shiny/25.png");
     private Stats _stat = new Stats(78, 84, 78, 109, 85, 100);
     private Type _firstType = new Type(10, "fire");
     private Type _secondType = new Type(3, "flying");
@@ -31,7 +31,7 @@ public class PokemonTests
         // When 
         // Then
         Assert.DoesNotThrow(() => {
-            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprite, _stat, pokemonTypes);
+            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
         });
     }
 
@@ -46,7 +46,7 @@ public class PokemonTests
         // Then
 
         Assert.Throws<ArgumentException>(() => {
-            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprite, _stat, pokemonTypes);
+            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
         });
     }
 
@@ -61,7 +61,7 @@ public class PokemonTests
         // Then
 
         Assert.Throws<ArgumentException>(() => {
-            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprite, _stat, pokemonTypes);
+            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
         });
     }
 

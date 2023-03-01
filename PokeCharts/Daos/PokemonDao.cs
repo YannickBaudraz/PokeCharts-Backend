@@ -18,12 +18,14 @@ public class PokemonDao : IPokemonDao
 
     public Pokemon Get(int id)
     {
-        return SendQuery(ConditionalQuery("id", id.ToString()))[0];
+        return SendQuery(ConditionalQuery("id", id.ToString())).FirstOrDefault()
+               ?? throw new PokemonNotFoundException(new ModelReference(id));
     }
 
     public Pokemon Get(string name)
     {
-        return SendQuery(ConditionalQuery("name", name))[0];
+        return SendQuery(ConditionalQuery("name", name)).FirstOrDefault()
+               ?? throw new PokemonNotFoundException(new ModelReference(name));
     }
 
     public List<Pokemon> Get()
@@ -55,14 +57,7 @@ public class PokemonDao : IPokemonDao
     private List<Pokemon> SendQuery(string query)
     {
         JObject result = _client.Execute(query).Result;
-        List<Pokemon> output = _queryConverter.ToPokemons(result);
-
-        if (output.Count > 0)
-        {
-            return output;
-        }
-
-        throw new PokemonNotFoundException(new ModelReference(1));
+        return _queryConverter.ToPokemons(result);
     }
 
     private string ConditionalQuery(string field, string value)

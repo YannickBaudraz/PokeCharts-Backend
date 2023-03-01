@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.OpenApi.Extensions;
 using PokeCharts.Constants;
 
-namespace PokeCharts.Extensions;
+namespace PokeCharts.Extensions.Microsoft.AspNetCore.Mvc;
 
 public static class ProblemDetails
 {
-    public static Microsoft.AspNetCore.Mvc.ProblemDetails From(ExceptionContext context, HttpStatusCode statusCode)
+    public static global::Microsoft.AspNetCore.Mvc.ProblemDetails From(ExceptionContext context, HttpStatusCode statusCode)
     {
         var problemDetailsFactory = context.HttpContext.RequestServices.GetRequiredService<ProblemDetailsFactory>();
         return problemDetailsFactory.CreateProblemDetails(
@@ -21,7 +21,7 @@ public static class ProblemDetails
         );
     }
 
-    public static Microsoft.AspNetCore.Mvc.ProblemDetails? From(StatusCodeContext statusCodeContext)
+    public static global::Microsoft.AspNetCore.Mvc.ProblemDetails? From(StatusCodeContext statusCodeContext)
     {
         int responseStatusCode = statusCodeContext.HttpContext.Response.StatusCode;
         if (responseStatusCode is < 400 or >= 600)

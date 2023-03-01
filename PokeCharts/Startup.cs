@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PokeCharts.Controllers;
 using PokeCharts.Daos;
-using PokeCharts.Extensions;
+using PokeCharts.Extensions.Microsoft.AspNetCore.Diagnostics;
+using PokeCharts.Extensions.Microsoft.AspNetCore.Mvc;
+using PokeCharts.Extensions.Microsoft.Extensions.DependencyInjection;
 using PokeCharts.Filters;
 using PokeCharts.Handlers.Exceptions;
 
@@ -26,7 +28,7 @@ public class Startup
         {
             options.Filters.AddService(typeof(ModelExceptionFilterAttribute));
             options.Filters.AddService(typeof(SystemExceptionFilterAttribute));
-        }).ConfigureApiBehaviorOptions(StartupConfigurationHelper.ConfigureClientErrorMapping);
+        }).ConfigureApiBehaviorOptions(options => options.ConfigureClientErrorMapping());
 
         string[] allowedOrigins = Configuration.GetSection("CORS:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
         services.AddCors(allowedOrigins)
@@ -48,7 +50,7 @@ public class Startup
             app.UseExceptionHandler(ErrorController.BaseRoute);
         }
 
-        app.UseStatusCodePages(async ctx => await StartupConfigurationHelper.WriteProblemDetailsAsJsonAsync(ctx));
+        app.UseStatusCodePages(async ctx => await ctx.WriteProblemDetailsAsJsonAsync());
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseCors();

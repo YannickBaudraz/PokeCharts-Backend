@@ -1,4 +1,4 @@
-namespace PokeCharts.Extensions;
+namespace PokeCharts.Extensions.Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {

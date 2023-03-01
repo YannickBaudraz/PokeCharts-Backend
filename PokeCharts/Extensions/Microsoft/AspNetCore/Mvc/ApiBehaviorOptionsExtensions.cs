@@ -1,37 +1,21 @@
 using System.ComponentModel;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Extensions;
 using PokeCharts.Constants;
 
-namespace PokeCharts;
+namespace PokeCharts.Extensions.Microsoft.AspNetCore.Mvc;
 
-public static class StartupConfigurationHelper
+public static class ApiBehaviorOptionsExtensions
 {
-    public static async Task WriteProblemDetailsAsJsonAsync(StatusCodeContext statusCodeContext)
-    {
-        int responseStatusCode = statusCodeContext.HttpContext.Response.StatusCode;
-        if (responseStatusCode is < 400 or >= 600)
-            return;
-
-        ProblemDetails? problemDetails = Extensions.ProblemDetails.From(statusCodeContext);
-        if (problemDetails is null)
-            return;
-
-        statusCodeContext.HttpContext.Response.ContentType = "application/problem+json; charset=utf-8";
-        await statusCodeContext.HttpContext.Response.WriteAsJsonAsync(problemDetails);
-    }
-
-    public static void ConfigureClientErrorMapping(ApiBehaviorOptions options)
+    public static void ConfigureClientErrorMapping(this ApiBehaviorOptions options)
     {
         IEnumerable<int> errorCodes = Enum.GetValues<Rfc.Http.Status.Error>().Cast<int>();
 
-        errorCodes.ToList()
-                  .ForEach(errorCode =>
-                  {
-                      EnsureErrorMappingExists(options, errorCode);
-                      AddErrorMappingData(options, errorCode);
-                  });
+        errorCodes.ToList().ForEach(errorCode =>
+        {
+            EnsureErrorMappingExists(options, errorCode);
+            AddErrorMappingData(options, errorCode);
+        });
     }
 
     private static void EnsureErrorMappingExists(ApiBehaviorOptions options, int errorCode)

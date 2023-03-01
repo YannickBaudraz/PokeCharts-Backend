@@ -10,12 +10,19 @@ namespace PokeCharts;
 
 public class Startup
 {
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+
+    private IConfiguration Configuration { get; }
+
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<IPokemonDao, PokemonDao>()
-                .AddSingleton<IModelExceptionHandler, MultipleModelExceptionHandlers>()
-                .AddSingleton<ModelExceptionFilterAttribute>()
-                .AddSingleton<SystemExceptionFilterAttribute>();
+            .AddSingleton<IModelExceptionHandler, MultipleModelExceptionHandlers>()
+            .AddSingleton<ModelExceptionFilterAttribute>()
+            .AddSingleton<SystemExceptionFilterAttribute>();
 
         services.AddControllers(options =>
         {
@@ -24,8 +31,13 @@ public class Startup
         }).ConfigureApiBehaviorOptions(StartupConfigurationHelper.ConfigureClientErrorMapping);
 
         services.AddProblemDetails()
-                .AddEndpointsApiExplorer()
-                .AddSwaggerGen();
+            .AddEndpointsApiExplorer()
+            .AddSwaggerGen();
+
+        services.AddCors(options => options.AddDefaultPolicy(builder => builder
+            .WithOrigins(Configuration.GetSection("CORS:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>())
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,7 +56,9 @@ public class Startup
         app.UseStatusCodePages(async ctx => await StartupConfigurationHelper.WriteProblemDetailsAsJsonAsync(ctx));
         app.UseHttpsRedirection();
         app.UseRouting();
+        app.UseCors();
         app.UseAuthorization();
+        // Add custom middlewares here, between UseAuthorization and UseEndpoints
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }

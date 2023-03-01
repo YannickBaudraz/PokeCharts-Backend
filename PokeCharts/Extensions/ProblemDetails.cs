@@ -21,7 +21,6 @@ public static class ProblemDetails
         );
     }
 
-
     public static Microsoft.AspNetCore.Mvc.ProblemDetails? From(StatusCodeContext statusCodeContext)
     {
         int responseStatusCode = statusCodeContext.HttpContext.Response.StatusCode;

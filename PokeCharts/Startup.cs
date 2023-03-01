@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PokeCharts.Controllers;
 using PokeCharts.Daos;
+using PokeCharts.Extensions;
 using PokeCharts.Filters;
 using PokeCharts.Handlers.Exceptions;
 
@@ -10,12 +11,9 @@ namespace PokeCharts;
 
 public class Startup
 {
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
-
     private IConfiguration Configuration { get; }
+
+    public Startup(IConfiguration configuration) => Configuration = configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -30,14 +28,11 @@ public class Startup
             options.Filters.AddService(typeof(SystemExceptionFilterAttribute));
         }).ConfigureApiBehaviorOptions(StartupConfigurationHelper.ConfigureClientErrorMapping);
 
-        services.AddProblemDetails()
+        string[] allowedOrigins = Configuration.GetSection("CORS:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
+        services.AddCors(allowedOrigins)
+            .AddProblemDetails()
             .AddEndpointsApiExplorer()
             .AddSwaggerGen();
-
-        services.AddCors(options => options.AddDefaultPolicy(builder => builder
-            .WithOrigins(Configuration.GetSection("CORS:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>())
-            .AllowAnyHeader()
-            .AllowAnyMethod()));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

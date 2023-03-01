@@ -37,7 +37,7 @@ public class PokemonDaoIntegrationTests
         //when
         object results = _pokemonDao.Get(expectedPokemon.Id);
         //then
-        Assert.AreEqual(results.ToJson(), expectedPokemon.ToJson());
+        Assert.That(expectedPokemon.ToJson(), Is.EqualTo(results.ToJson()));
     }
 
     [Test]
@@ -55,7 +55,7 @@ public class PokemonDaoIntegrationTests
         //when
         object results = _pokemonDao.Get(expectedPokemon.Name);
         //then
-        Assert.AreEqual(results.ToJson(), expectedPokemon.ToJson());
+        Assert.That(expectedPokemon.ToJson(), Is.EqualTo(results.ToJson()));
     }
 
     [Test]
@@ -87,6 +87,6 @@ public class PokemonDaoIntegrationTests
         List<Pokemon> pokemons = _pokemonDao.Get();
         string actualList = pokemons.ToJson();
         //then
-        Assert.AreEqual(expectedList, actualList);
+        Assert.That(actualList, Is.EqualTo(expectedList));
     }
 }

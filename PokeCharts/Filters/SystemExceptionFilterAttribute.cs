@@ -24,7 +24,7 @@ public class SystemExceptionFilterAttribute : ExceptionFilterAttribute
         if (exceptionPair.Value == default)
             return;
 
-        ProblemDetails problemDetails = Extensions.ProblemDetails.From(context, exceptionPair.Value);
+        ProblemDetails problemDetails = Extensions.Microsoft.AspNetCore.Mvc.ProblemDetails.From(context, exceptionPair.Value);
         context.Result = new ObjectResult(problemDetails)
         {
             ContentTypes = { "application/problem+json; charset=utf-8" },

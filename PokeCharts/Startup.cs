@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PokeCharts.Controllers;
 using PokeCharts.Daos;
+using PokeCharts.Extensions.Microsoft.AspNetCore.Diagnostics;
+using PokeCharts.Extensions.Microsoft.AspNetCore.Mvc;
+using PokeCharts.Extensions.Microsoft.Extensions.DependencyInjection;
 using PokeCharts.Filters;
 using PokeCharts.Handlers.Exceptions;
 
@@ -10,22 +13,28 @@ namespace PokeCharts;
 
 public class Startup
 {
+    private IConfiguration Configuration { get; }
+
+    public Startup(IConfiguration configuration) => Configuration = configuration;
+
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<IPokemonDao, PokemonDao>()
-                .AddSingleton<IModelExceptionHandler, MultipleModelExceptionHandlers>()
-                .AddSingleton<ModelExceptionFilterAttribute>()
-                .AddSingleton<SystemExceptionFilterAttribute>();
+            .AddSingleton<IModelExceptionHandler, MultipleModelExceptionHandlers>()
+            .AddSingleton<ModelExceptionFilterAttribute>()
+            .AddSingleton<SystemExceptionFilterAttribute>();
 
         services.AddControllers(options =>
         {
             options.Filters.AddService(typeof(ModelExceptionFilterAttribute));
             options.Filters.AddService(typeof(SystemExceptionFilterAttribute));
-        }).ConfigureApiBehaviorOptions(StartupConfigurationHelper.ConfigureClientErrorMapping);
+        }).ConfigureApiBehaviorOptions(options => options.ConfigureClientErrorMapping());
 
-        services.AddProblemDetails()
-                .AddEndpointsApiExplorer()
-                .AddSwaggerGen();
+        string[] allowedOrigins = Configuration.GetSection("CORS:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
+        services.AddCors(allowedOrigins)
+            .AddProblemDetails()
+            .AddEndpointsApiExplorer()
+            .AddSwaggerGen();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,10 +50,12 @@ public class Startup
             app.UseExceptionHandler(ErrorController.BaseRoute);
         }
 
-        app.UseStatusCodePages(async ctx => await StartupConfigurationHelper.WriteProblemDetailsAsJsonAsync(ctx));
+        app.UseStatusCodePages(async ctx => await ctx.WriteProblemDetailsAsJsonAsync());
         app.UseHttpsRedirection();
         app.UseRouting();
+        app.UseCors();
         app.UseAuthorization();
+        // Add custom middlewares here, between UseAuthorization and UseEndpoints
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }

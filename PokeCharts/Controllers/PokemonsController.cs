@@ -18,7 +18,7 @@ public class PokemonsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Pokemon>> GetAll()
+    public ActionResult<List<Pokemon>> Get()
     {
         return _pokemonDao.Get();
     }

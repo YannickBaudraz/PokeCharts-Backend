@@ -1,5 +1,6 @@
 using PokeCharts.Models;
 using PokeCharts.Daos;
+using PokeCharts.Exceptions;
 using Type = PokeCharts.Models.Type;
 using Microsoft.Extensions.Configuration;
 using NuGet.Protocol;
@@ -51,7 +52,7 @@ public class PokemonDaoIntegrationTests
         //given
         int id = -1;
         //then
-        Assert.Throws<Exception>(() => _pokemonDao.Get(id));
+        Assert.Throws<PokemonNotFoundException>(() => _pokemonDao.Get(id));
     }
     [Test]
     public void Get_ByName_WrongName_ThrowsException()
@@ -59,7 +60,7 @@ public class PokemonDaoIntegrationTests
         //given
         string name = "picachu";
         //then
-        Assert.Throws<Exception>(() => _pokemonDao.Get(name));
+        Assert.Throws<PokemonNotFoundException>(() => _pokemonDao.Get(name));
     }
     [Test]
     public void Get_NominalCase_ReturnsAllPokemons()

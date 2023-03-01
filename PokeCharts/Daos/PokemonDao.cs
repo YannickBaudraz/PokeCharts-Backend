@@ -1,11 +1,6 @@
 ﻿﻿﻿using PokeCharts.GraphQl;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PokeCharts.Models;
 using PokeCharts.Exceptions;
-using System.Runtime.InteropServices;
-using Type = PokeCharts.Models.Type;
-using System.Xml.Linq;
 namespace PokeCharts.Daos;
 
 public class PokemonDao : IPokemonDao
@@ -62,7 +57,7 @@ public class PokemonDao : IPokemonDao
         {
             return output;
         }            
-        throw new PokemonNotFoundException();
+        throw new PokemonNotFoundException(1);
     }
     
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PokeCharts.Dao;
+using PokeCharts.Daos;
 using PokeCharts.Models;
 
 namespace PokeCharts.Controllers;
@@ -10,14 +10,28 @@ public class PokemonsController : ControllerBase
 {
     private readonly IPokemonDao _pokemonDao;
 
-    public PokemonsController(IPokemonDao pokemonDao)
+    public PokemonsController(IPokemonDao? pokemonDao = null)
     {
-        _pokemonDao = pokemonDao;
+        _pokemonDao = pokemonDao ?? new PokemonDao(new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build());
     }
 
     [HttpGet]
-    public ActionResult<List<Pokemon>> Get() => _pokemonDao.Get();
+    public ActionResult<List<Pokemon>> Get()
+    {
+        return _pokemonDao.Get();
+    }
 
     [HttpGet("{id:int}")]
-    public ActionResult<Pokemon> Get(int id) => _pokemonDao.Get(id);
+    public ActionResult<Pokemon> Get(int id)
+    {
+        return _pokemonDao.Get(id);
+    }
+
+    [HttpGet("{name}")]
+    public ActionResult<Pokemon> Get(string name)
+    {
+        return _pokemonDao.Get(name);
+    }
 }

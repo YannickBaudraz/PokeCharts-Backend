@@ -7,4 +7,5 @@ public interface IPokemonDao
     Pokemon Get(int id);
     Pokemon Get(string name);
     List<Pokemon> Get();
+    List<string> GetNames();
 }

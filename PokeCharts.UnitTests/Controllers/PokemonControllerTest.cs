@@ -20,7 +20,7 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetAllNominalCaseSuccess()
+    public void GetAll_NominalCase_Success()
     {
         //given
         Stats stats = new(1, 2, 3, 4, 5, 6);
@@ -45,7 +45,7 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetNameSuccess()
+    public void GetName_NominalCase_Success()
     {
         //given
         PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
@@ -62,7 +62,7 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetNameException()
+    public void GetName_PokemonDoesNotExist_Exception()
     {
         //given
         _pokemonDaoMock.Setup(m => m.Get("teemo")).Throws(new Exception("pokemon does not exist"));
@@ -72,7 +72,7 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetIdSuccess()
+    public void GetId_NominalCase_Success()
     {
         //given
         PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
@@ -89,12 +89,25 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetIdException()
+    public void GetId_PokemonDoesNotExist_Exception()
     {
         //given
         _pokemonDaoMock.Setup(m => m.Get(-1)).Throws(new Exception("pokemon does not exist"));
 
         //when & then
         Assert.Throws<Exception>(() => _pokemonsController.Get(-1));
+    }
+    [Test]
+    public void GetNames_NominalCase_Success()
+    {
+
+        //given
+        List<string> names = new() { "pikachu", "charmander", "squirtle" };
+        _pokemonDaoMock.Setup(m => m.GetNames()).Returns(names);
+
+        //when
+         List<string>? results = _pokemonsController.GetNames().Value;
+        //then
+        Assert.That(results, Is.EqualTo(names));
     }
 }

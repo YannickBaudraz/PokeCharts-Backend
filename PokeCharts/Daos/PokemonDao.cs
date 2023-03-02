@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿﻿using Newtonsoft.Json.Linq;
 using PokeCharts.Exceptions;
 using PokeCharts.GraphQl;
 using PokeCharts.Models;
@@ -53,7 +53,16 @@ public class PokemonDao : IPokemonDao
 
         return SendQuery(query);
     }
-
+    public List<string> GetNames()
+    {
+        string query = new GraphQlQueryBuilder("")
+          .Field("Pokemons: pokemon_v2_pokemon", b => b
+            .Field("Name: name")
+          ).Build();
+        var result = _client.Execute(query).Result;
+        return _queryConverter.ToNamesList(result, "Pokemons");
+    }
+    
     private List<Pokemon> SendQuery(string query)
     {
         JObject result = _client.Execute(query).Result;

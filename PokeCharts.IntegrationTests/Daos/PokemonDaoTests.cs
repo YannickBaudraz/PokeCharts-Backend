@@ -89,4 +89,17 @@ public class PokemonDaoIntegrationTests
         //then
         Assert.That(actualList, Is.EqualTo(expectedList));
     }
+    [Test]
+    public void GetNames_NominalCase_ReturnsAllPokemonNames()
+    {
+        //given
+        //load the json file from the resources folder
+        string expectedList = System.IO.File.ReadAllText(@"..\..\..\..\PokeCharts.UnitTests\Resources\PokemonNameList.json");
+
+        //when
+        List<string> pokemons = _pokemonDao.GetNames();
+        string actualList = pokemons.ToJson();
+        //then
+        Assert.That(actualList, Is.EqualTo(expectedList));
+    }
 }

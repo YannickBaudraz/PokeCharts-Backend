@@ -97,4 +97,17 @@ public class PokemonControllerTest
         //when & then
         Assert.Throws<Exception>(() => _pokemonsController.Get(-1));
     }
+    [Test]
+    public void GetNamesException()
+    {
+
+        //given
+        List<string> names = new() { "pikachu", "charmander", "squirtle" };
+        _pokemonDaoMock.Setup(m => m.GetNames()).Returns(names);
+
+        //when
+         List<string>? results = _pokemonsController.GetNames().Value;
+        //then
+        Assert.That(results, Is.EqualTo(names));
+    }
 }

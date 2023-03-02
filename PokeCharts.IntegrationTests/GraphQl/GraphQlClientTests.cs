@@ -9,7 +9,7 @@ public class GraphQlClientTest
 {
     private readonly GraphQlClient _client = new(ConfigTestHelper.Configuration);
 
-    // To prove that we really received data
+    // Checks that the returned data are those expected
     private static int? GetPokemonId(JObject jsonOutput)
     {
         var pokemons = from pokemon in jsonOutput["data"]?["pokemon_v2_pokemon"] select pokemon;
@@ -18,50 +18,7 @@ public class GraphQlClientTest
     }
 
     [Test]
-    public void Execute_emptyQuery_throwException()
-    {
-        // given
-        string query = "";
-
-        // when
-        var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
-
-        // Then
-        Assert.IsNotNull(exception?.Message);
-    }
-
-    [Test]
-    public void Execute_notAQuery_throwException()
-    {
-        // given
-        string query = "Invalid query";
-
-        // when
-        var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
-
-        // Then
-        Assert.IsNotNull(exception?.Message);
-    }
-
-    [Test]
-    public void Execute_incorrectQuery_throwException()
-    {
-        // given            /
-        string query = @"query {
-                non_existent_field(limit: 3, order_by: {id: asc}) {
-                    id
-                }
-            }";
-
-        // when
-        var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
-
-        // Then
-        Assert.IsNotNull(exception?.Message);
-    }
-
-    [Test]
-    public void Execute_simpleQuery_caseSuccess()
+    public void Execute_CorrectQuerySyntax_Success()
     {
         // given
         string query = @"query {
@@ -75,5 +32,48 @@ public class GraphQlClientTest
 
         // then
         Assert.That(GetPokemonId(result), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Execute_NullQuery_ThrowsException()
+    {
+        // given
+        string query = "";
+
+        // when
+        var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
+
+        // Then
+        Assert.IsNotNull(exception?.Message);
+    }
+
+    [Test]
+    public void Execute_IncorrectQuerySyntax_ThrowsException()
+    {
+        // given
+        string query = "Invalid query";
+
+        // when
+        var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
+
+        // Then
+        Assert.IsNotNull(exception?.Message);
+    }
+
+    [Test]
+    public void Execute_QueryContainsNonExistentField_ThrowsException()
+    {
+        // given            
+        string query = @"query {
+                non_existent_field(limit: 3, order_by: {id: asc}) {
+                    id
+                }
+            }";
+
+        // when
+        var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
+
+        // Then
+        Assert.IsNotNull(exception?.Message);
     }
 }

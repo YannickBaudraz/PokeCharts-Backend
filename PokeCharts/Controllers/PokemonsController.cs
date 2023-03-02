@@ -24,4 +24,7 @@ public class PokemonsController : ControllerBase
     [HttpGet("{name}")]
     [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
     public ActionResult<Pokemon> Get(string name) => _pokemonDao.Get(name);
+    [HttpGet("Names")]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+    public ActionResult<List<string>> GetNames() => _pokemonDao.GetNames();
 }

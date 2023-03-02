@@ -83,4 +83,14 @@ public class QueryConverter {
         }
         return typeList;
     }
+    public List<string> ToNamesList(JToken jsonInput, string model)
+    {
+        List<string> nameList = new List<string>();
+        var entities = from entity in jsonInput?["data"]?[model] select entity;
+        foreach (JToken step in entities)
+        {
+            nameList.Add((string)step?["Name"]!);
+        }
+        return nameList;
+    }
 }

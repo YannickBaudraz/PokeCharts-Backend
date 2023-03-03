@@ -13,10 +13,16 @@ public class QueryConverter {
     {
         _configuration = configuration;
     }
-
-    public List<Pokemon> ToPokemons(JObject jsonInput)
+    public enum Models
     {
-        var pokemons = from pokemon in jsonInput?["data"]?["Pokemons"] select pokemon;
+        Pokemons,
+        Types,
+        Stats
+    }
+
+    public List<Pokemon> ToPokemons(JObject jsonInput, bool isRoot=true)
+    {
+        var pokemons = isRoot? from pokemon in jsonInput?["data"]?["Pokemons"] select pokemon: jsonInput;
         List<Pokemon> output = new List<Pokemon>();
 
         foreach (JToken step in pokemons)
@@ -30,18 +36,19 @@ public class QueryConverter {
             string mainUrl = urlSuffix + "" + pokemonId + ".png";
             string shinyUrl = urlSuffix + "shiny/" + pokemonId + ".png";
             PokemonSprites sprites = new PokemonSprites(mainUrl, shinyUrl);            
-            Stats pokemonStats = ToStats(step?["Stats"]!);
-            Type[] typeList = ToTypes(step?["Types"]!).ToArray();
+            Stats pokemonStats = ToStats(step?["Stats"]!, false);
+            Type[] typeList = ToTypes(step?["Types"]!,false).ToArray();
             Pokemon pokemon = new Pokemon(pokemonId, name, height, weight, sprites, pokemonStats, typeList);
             output.Add(pokemon);
         }
         
         return output;
     }
-    public Stats ToStats(JToken jsonInput)
+    public Stats ToStats(JToken jsonInput, bool isRoot=true)
     {
+        var stats = isRoot? from stat in jsonInput?["data"]?["Stats"] select stat: jsonInput;
         int[] statsList = new int[] { 0, 0, 0, 0, 0, 0 };
-        foreach (JToken stat in jsonInput)
+        foreach (JToken stat in stats)
         {
             int statsId = (int)stat?["Stat"]?["Id"]!;
             string statsName = (string)stat?["Stat"]?["Name"]!;
@@ -71,10 +78,11 @@ public class QueryConverter {
         return new Stats(statsList[0], statsList[1], statsList[2], statsList[3], statsList[4], statsList[5]);
 
     }
-    public List<Type> ToTypes(JToken jsonInput)
+    public List<Type> ToTypes(JToken jsonInput, bool isRoot=true)
     {
+        var types = isRoot? from type in jsonInput?["data"]?["Types"] select type: jsonInput;
         List<Type> typeList = new List<Type>();
-        foreach (JToken type in jsonInput)
+        foreach (JToken type in types)
         {
             int typeId = (int)type?["Type"]?["Id"]!;
             string typeName = (string)type?["Type"]?["Name"]!;
@@ -85,8 +93,8 @@ public class QueryConverter {
     }
     public List<string> ToNamesList(JToken jsonInput, string model)
     {
-        List<string> nameList = new List<string>();
         var entities = from entity in jsonInput?["data"]?[model] select entity;
+        List<string> nameList = new List<string>();
         foreach (JToken step in entities)
         {
             nameList.Add((string)step?["Name"]!);

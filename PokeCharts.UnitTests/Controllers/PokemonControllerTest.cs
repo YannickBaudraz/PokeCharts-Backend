@@ -20,7 +20,7 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetAll_NominalCase_Success()
+    public void Get_NoParameter_ReturnsAllPokemons()
     {
         //given
         Stats stats = new(1, 2, 3, 4, 5, 6);
@@ -45,7 +45,7 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetName_NominalCase_Success()
+    public void Get_ExistingName_ReturnsOnePokemon()
     {
         //given
         PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
@@ -62,7 +62,7 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetName_PokemonDoesNotExist_Exception()
+    public void Get_NonExistentName_ThrowsException()
     {
         //given
         _pokemonDaoMock.Setup(m => m.Get("teemo")).Throws(new Exception("pokemon does not exist"));
@@ -72,7 +72,7 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetId_NominalCase_Success()
+    public void Get_ExistingId_ReturnsOnePokemon()
     {
         //given
         PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
@@ -89,7 +89,7 @@ public class PokemonControllerTest
     }
 
     [Test]
-    public void GetId_PokemonDoesNotExist_Exception()
+    public void Get_NonExistentId_ThrowsException()
     {
         //given
         _pokemonDaoMock.Setup(m => m.Get(-1)).Throws(new Exception("pokemon does not exist"));
@@ -98,7 +98,7 @@ public class PokemonControllerTest
         Assert.Throws<Exception>(() => _pokemonsController.Get(-1));
     }
     [Test]
-    public void GetNames_NominalCase_Success()
+    public void GetNames_NoParameter_ReturnsPokemonNames()
     {
 
         //given

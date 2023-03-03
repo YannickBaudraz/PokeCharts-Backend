@@ -23,7 +23,7 @@ public class PokemonDaoIntegrationTests
     }
 
     [Test]
-    public void Get_ById_NominalCase_ReturnsPokemon()
+    public void Get_ExistingId_ReturnsPokemon()
     {
         //given
         string urlSuffix = _configuration.GetValue<string>("GraphQl:SpriteSuffix")
@@ -41,7 +41,7 @@ public class PokemonDaoIntegrationTests
     }
 
     [Test]
-    public void Get_ByName_NominalCase_ReturnsPokemon()
+    public void Get_ExistingName_ReturnsPokemon()
     {
         //given
         string urlSuffix = _configuration.GetValue<string>("GraphQl:SpriteSuffix")
@@ -59,7 +59,7 @@ public class PokemonDaoIntegrationTests
     }
 
     [Test]
-    public void Get_ById_WrongId_ThrowsException()
+    public void Get_NonExistentId_ThrowsException()
     {
         //given
         int id = -1;
@@ -68,7 +68,7 @@ public class PokemonDaoIntegrationTests
     }
 
     [Test]
-    public void Get_ByName_WrongName_ThrowsException()
+    public void Get_NonExistentName_ThrowsException()
     {
         //given
         string name = "picachu";
@@ -77,7 +77,7 @@ public class PokemonDaoIntegrationTests
     }
 
     [Test]
-    public void Get_NominalCase_ReturnsAllPokemons()
+    public void Get_NoParameter_ReturnsAllPokemons()
     {
         //given
         //load the json file from the resources folder

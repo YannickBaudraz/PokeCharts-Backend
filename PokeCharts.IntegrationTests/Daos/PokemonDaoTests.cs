@@ -81,7 +81,7 @@ public class PokemonDaoIntegrationTests
     {
         //given
         //load the json file from the resources folder
-        string expectedList = System.IO.File.ReadAllText(@"..\..\..\..\PokeCharts.UnitTests\Resources\PokemonList.json");
+        string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PokemonList.json");
 
         //when
         List<Pokemon> pokemons = _pokemonDao.Get();
@@ -94,7 +94,7 @@ public class PokemonDaoIntegrationTests
     {
         //given
         //load the json file from the resources folder
-        string expectedList = System.IO.File.ReadAllText(@"..\..\..\..\PokeCharts.UnitTests\Resources\PokemonNameList.json");
+        string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PokemonNameList.json");
 
         //when
         List<string> pokemons = _pokemonDao.GetNames();

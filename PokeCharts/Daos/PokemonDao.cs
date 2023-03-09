@@ -96,4 +96,24 @@ public class PokemonDao : IPokemonDao
                 )
             ).Build();
     }
+
+    public List<Pokemon> GetFiltered(string types, string stat, string conditions, int? conditionValue)
+    {
+        //string typeCondition ="[{pokemon_v2_pokemontypes: {pokemon_v2_type: {name: {_eq: 'normal'}}}}, {pokemon_v2_pokemontypes: {pokemon_v2_type: {name: {_eq: 'water'}}}}]";
+
+        /*
+        //Get pokemon that contains the one of the types
+        string query = new GraphQlQueryBuilder("")
+            .Argument("where", b => b
+                .ArgumentCondition("_or", typeCondition))
+            .EndArguments()
+            .Field("Pokemons: pokemon_v2_pokemon", b => b
+                .Field("Id: id")
+                .Field("Name: name")
+            ).Build();*/
+            
+        string query = "query best_grass_poison_pokemons{pokemon: pokemon_v2_pokemon(where: {_or: [{pokemon_v2_pokemontypes: {pokemon_v2_type: {name: {_eq: \"grass\"}}}}, {pokemon_v2_pokemontypes: {pokemon_v2_type: {name: {_eq: \"poison\"}}}}]}) {name stats: pokemon_v2_pokemonstats_aggregate(order_by: {}) {aggregate {sum {base_stat}}}}}";
+        return SendQuery(query);
+        
+    }
 }

@@ -103,13 +103,21 @@ public class QueryConverter {
         {
             int moveId = (int)move?["Id"]!;
             string moveName = (string)move?["Name"]!;
-            int movePower = (int)move?["Power"]!;
+            int movePower = (move?["Power"]!.Type == JTokenType.Null)? 0 : (int)move?["Power"]!;
             string damageClass = (string)move?["DamageClass"]?["Name"]!;
+            damageClass = char.ToUpper(damageClass[0]) + damageClass.Substring(1);
             Move.Categories category = Move.Categories.Parse<Move.Categories>(damageClass);
-            Type moveType = ToTypes(move?["Type"]!,false)[0];
+            Type moveType = ToMoveType(move?["Type"]!);
             moveList.Add(new Move(moveId, moveName, movePower, category, moveType));
         }
         return moveList;
+    }
+    public Type ToMoveType(JToken type)
+    {
+
+        int typeId = (int)type?["Id"]!;
+        string typeName = (string)type?["Name"]!;
+        return new Type(typeId, typeName);
     }
 
     public List<string> ToNamesList(JToken jsonInput, string model)

@@ -31,7 +31,7 @@ public class MoveDao : IMoveDao
     public List<Move> Get()
     {
         string query = new GraphQlQueryBuilder("")
-            .FieldWithArguments("Moves: pokemon_v2_move", b => b
+            .Field("Moves: pokemon_v2_move", b => b
                 .Field("Id: id")
                 .Field("Name: name")
                 .Field("Type: pokemon_v2_type", b => b
@@ -39,22 +39,12 @@ public class MoveDao : IMoveDao
                     .Field("Name: name")
                 )
                 .Field("Power: power")
-                .Field("DamageClass: pokemon_v2_move_damage_class", b => b
-                    .Field("Id: id")
+                .Field("DamageClass: pokemon_v2_movedamageclass", b => b
                     .Field("Name: name")
                 )
             )
             .Build();
         return SendQuery(query);
-    }
-    public List<string> GetNames()
-    {
-        string query = new GraphQlQueryBuilder("")
-          .Field("Moves: pokemon_v2_move", b => b
-            .Field("Name: name")
-          ).Build();
-        var result = _client.Execute(query).Result;
-        return _queryConverter.ToNamesList(result, "Moves");
     }
 
     private List<Move> SendQuery(string query)
@@ -78,7 +68,7 @@ public class MoveDao : IMoveDao
                     .Field("Name: name")
                 )
                 .Field("Power: power")
-                .Field("DamageClass: pokemon_v2_move_damage_class", b => b
+                .Field("DamageClass: pokemon_v2_movedamageclass", b => b
                     .Field("Id: id")
                     .Field("Name: name")
                 )

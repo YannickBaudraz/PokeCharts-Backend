@@ -97,7 +97,7 @@ public class PokemonDao : IPokemonDao
             ).Build();
     }
 
-    public List<Pokemon> GetFiltered(string types, string stat, string conditions, int? conditionValue)
+    public List<Pokemon> GetFiltered(string types, string stat, string? conditions, int? conditionValue)
     {
         List<Pokemon> currentList = new List<Pokemon>();
         List<Pokemon> newList = new List<Pokemon>();
@@ -150,22 +150,22 @@ public class PokemonDao : IPokemonDao
                     switch (stat)
                     {
                         case "health":
-                            statValue = p.Stats.Hp;
+                            statValue = p.Stats!.Hp;
                             break;
                         case "attack":
-                            statValue = p.Stats.Attack;
+                            statValue = p.Stats!.Attack;
                             break;
                         case "defense":
-                            statValue = p.Stats.Defense;
+                            statValue = p.Stats!.Defense;
                             break;
                         case "specialattack":
-                            statValue = p.Stats.SpecialAttack;
+                            statValue = p.Stats!.SpecialAttack;
                             break;
                         case "specialdefense":
-                            statValue = p.Stats.SpecialDefense;
+                            statValue = p.Stats!.SpecialDefense;
                             break;
                         case "speed":
-                            statValue = p.Stats.Speed;
+                            statValue = p.Stats!.Speed;
                             break;
                         default:
                             break;

@@ -9,5 +9,5 @@ public interface IPokemonDao
     List<Pokemon> Get();
     List<string> GetNames();
 
-    List<Pokemon> GetFiltered(string types, string stat, string conditions, int? conditionValue);
+    List<Pokemon> GetFiltered(string types, string stat, string? conditions, int? conditionValue);
 }

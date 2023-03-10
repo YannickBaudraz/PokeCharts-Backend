@@ -99,21 +99,94 @@ public class PokemonDao : IPokemonDao
 
     public List<Pokemon> GetFiltered(string types, string stat, string conditions, int? conditionValue)
     {
-        //string typeCondition ="[{pokemon_v2_pokemontypes: {pokemon_v2_type: {name: {_eq: 'normal'}}}}, {pokemon_v2_pokemontypes: {pokemon_v2_type: {name: {_eq: 'water'}}}}]";
+        List<Pokemon> currentList = new List<Pokemon>();
+        List<Pokemon> newList = new List<Pokemon>();
+        string currentQuery;
 
-        /*
-        //Get pokemon that contains the one of the types
-        string query = new GraphQlQueryBuilder("")
-            .Argument("where", b => b
-                .ArgumentCondition("_or", typeCondition))
-            .EndArguments()
-            .Field("Pokemons: pokemon_v2_pokemon", b => b
-                .Field("Id: id")
-                .Field("Name: name")
-            ).Build();*/
-            
-        string query = "query best_grass_poison_pokemons{pokemon: pokemon_v2_pokemon(where: {_or: [{pokemon_v2_pokemontypes: {pokemon_v2_type: {name: {_eq: \"grass\"}}}}, {pokemon_v2_pokemontypes: {pokemon_v2_type: {name: {_eq: \"poison\"}}}}]}) {name stats: pokemon_v2_pokemonstats_aggregate(order_by: {}) {aggregate {sum {base_stat}}}}}";
-        return SendQuery(query);
+        // Split the types and for each type, get all pokemons of that type
+        foreach(string type in types.Split(","))
+        {
+            currentQuery = new GraphQlQueryBuilder("")
+                .FieldWithArguments("Pokemons: pokemon_v2_pokemon", b => b
+                    .Argument("where", b => b
+                        .Argument("pokemon_v2_pokemontypes", b => b
+                            .Argument("pokemon_v2_type", b => b
+                                .Argument("name", b => b
+                                    .ArgumentCondition("_eq", type)))))
+                    .EndArguments()
+                    .Field("Id: id")
+                    .Field("Name: name")
+                    .Field("Height: height")
+                    .Field("Weight: weight")
+                    .Field("Types: pokemon_v2_pokemontypes", b => b
+                        .Field("Type: pokemon_v2_type", b => b
+                            .Field("Id: id")
+                            .Field("Name: name")
+                        )
+                    )
+                    .Field("Stats: pokemon_v2_pokemonstats", b => b
+                        .Field("Stat: pokemon_v2_stat", b => b
+                            .Field("Id: id")
+                            .Field("Name: name")
+                        )
+                        .Field("BaseStat: base_stat")
+                    )
+                ).Build();
+            currentList = SendQuery(currentQuery);
+            newList = newList.Union(currentList).ToList();
+        }
+
+        if(conditions != null)
+        {
+            // Make the currentList equal to the newList
+            currentList = newList;
+
+            foreach (string condition in conditions.Split(","))
+            {
+                // remove all pokemons from the currentList that have a stat greater than the conditionValue
+                currentList = currentList.Where((p) =>
+                {
+                    int statValue = 0;
+                    switch (stat)
+                    {
+                        case "health":
+                            statValue = p.Stats.Hp;
+                            break;
+                        case "attack":
+                            statValue = p.Stats.Attack;
+                            break;
+                        case "defense":
+                            statValue = p.Stats.Defense;
+                            break;
+                        case "specialattack":
+                            statValue = p.Stats.SpecialAttack;
+                            break;
+                        case "specialdefense":
+                            statValue = p.Stats.SpecialDefense;
+                            break;
+                        case "speed":
+                            statValue = p.Stats.Speed;
+                            break;
+                        default:
+                            break;
+                    }
+                    switch (condition){
+                        case ">":
+                            return statValue < conditionValue;
+                        case "<":
+                            return statValue > conditionValue;
+                        case "=":
+                            return statValue != conditionValue;
+                        default:
+                            return false;
+                    }
+                }
+                ).ToList();
         
+            }
+            //debug
+            return currentList;
+        }            
+        return newList; 
     }
 }

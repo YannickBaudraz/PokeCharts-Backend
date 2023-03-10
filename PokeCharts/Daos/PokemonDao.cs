@@ -62,7 +62,7 @@ public class PokemonDao : IPokemonDao
         var result = _client.Execute(query).Result;
         return _queryConverter.ToNamesList(result, "Pokemons");
     }
-    
+
     private List<Pokemon> SendQuery(string query)
     {
         JObject result = _client.Execute(query).Result;
@@ -104,7 +104,7 @@ public class PokemonDao : IPokemonDao
         string currentQuery;
 
         // Split the types and for each type, get all pokemons of that type
-        foreach(string type in types.Split(","))
+        foreach (string type in types.Split(","))
         {
             currentQuery = new GraphQlQueryBuilder("")
                 .FieldWithArguments("Pokemons: pokemon_v2_pokemon", b => b
@@ -136,7 +136,7 @@ public class PokemonDao : IPokemonDao
             newList = newList.Union(currentList).ToList();
         }
 
-        if(conditions != null)
+        if (conditions != null)
         {
             // Make the currentList equal to the newList
             currentList = newList;
@@ -170,11 +170,12 @@ public class PokemonDao : IPokemonDao
                         default:
                             break;
                     }
-                    switch (condition){
+                    switch (condition)
+                    {
                         case ">":
-                            return statValue < conditionValue;
+                            return statValue <= conditionValue;
                         case "<":
-                            return statValue > conditionValue;
+                            return statValue >= conditionValue;
                         case "=":
                             return statValue != conditionValue;
                         default:
@@ -182,11 +183,11 @@ public class PokemonDao : IPokemonDao
                     }
                 }
                 ).ToList();
-        
+
             }
-            //debug
-            return currentList;
-        }            
-        return newList; 
+            // remove all pokemons from the newList that are in the currentList
+            newList = newList.Except(currentList).ToList();
+        }
+        return newList;
     }
 }

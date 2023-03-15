@@ -100,7 +100,7 @@ public class PokemonDao : IPokemonDao
     public List<Pokemon> GetFiltered(string types, string stat, string? conditions, int? conditionValue)
     {
         List<Pokemon> currentList = new List<Pokemon>();
-        List<Pokemon> newList = new List<Pokemon>();
+        List<Pokemon> newList = currentList;
         string currentQuery;
 
         // Split the types and for each type, get all pokemons of that type
@@ -133,7 +133,10 @@ public class PokemonDao : IPokemonDao
                     )
                 ).Build();
             currentList = SendQuery(currentQuery);
+            newList = newList.Except(currentList).ToList();
+            currentList = currentList.Except(newList).ToList();
             newList = newList.Union(currentList).ToList();
+            
         }
 
         if (conditions != null)

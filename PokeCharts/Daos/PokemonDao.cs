@@ -133,10 +133,12 @@ public class PokemonDao : IPokemonDao
                     )
                 ).Build();
             currentList = SendQuery(currentQuery);
-            newList = newList.Except(currentList).ToList();
-            currentList = currentList.Except(newList).ToList();
-            newList = newList.Union(currentList).ToList();
-            
+            //remove pokemon from currentList that are in newList
+            currentList = currentList.Where((p) => !newList.Any((p2) => p2.Id == p.Id)).ToList();
+            //add the currentList to the newList
+            newList.AddRange(currentList);
+            //sort the newList by id
+            newList = newList.OrderBy((p) => p.Id).ToList();
         }
 
         if (conditions != null)

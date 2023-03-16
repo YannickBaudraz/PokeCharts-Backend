@@ -31,7 +31,7 @@ public class PokemonMoveDao : IPokemonMoveDao
         JObject result = _client.Execute(query).Result;
         if (pokemonName != null && result["data"]?["Pokemons"]?.Count() == 0) throw new PokemonNotFoundException(new ModelReference(pokemonName));
         if (pokemonId != null && result["data"]?["Pokemons"]?.Count() == 0) throw new PokemonNotFoundException(new ModelReference(pokemonId));
-        return _queryConverter.ToPokemonMoves(result);
+        return _queryConverter.ToPokemonMoves(result).GroupBy(m => m.Id).Select(g => g.First()).ToList();
     }
 
     private string ConditionalQuery(string field, string value)

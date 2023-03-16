@@ -42,9 +42,9 @@ public class MoveDaoIntegrationTests
         string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PikachuMoves.json");
 
         //when
-        object results = _moveDao.Get(name);
+        object results = _moveDao.Get(name).ToJson();
         //then
-        Assert.That(expectedList, Is.EqualTo(results.ToJson()));
+        Assert.That(expectedList, Is.EqualTo(results));
     }
 
     [Test]

@@ -1,30 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PokeCharts.Daos;
 using PokeCharts.Models;
-using System.Xml.Linq;
-using Type = PokeCharts.Models.Type;
 
 namespace PokeCharts.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class MovesController : ControllerBase
+public class PokemonMovesController : ControllerBase
 {
-    private readonly IMoveDao _moveDao;
+    private readonly IPokemonMoveDao _moveDao;
 
-    public MovesController(IMoveDao moveDao)
+    public PokemonMovesController(IPokemonMoveDao moveDao)
     {
         _moveDao = moveDao;
     }
 
-    [HttpGet]
-    public ActionResult<List<Move>> GetAll() => _moveDao.Get();
-
-    [HttpGet("{id:int}")]
-    public ActionResult<Move> Get(int id) => _moveDao.Get(id);
-
-    [HttpGet("{name}")]
-    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-    public ActionResult<Move> Get(string name) => _moveDao.Get(name);
+    [HttpGet("{pokemonId:int}")]
+    public ActionResult<List<Move>> GetAll(int pokemonId) => _moveDao.Get(pokemonId);
+    [HttpGet("{pokemonName}")]
+    public ActionResult<List<Move>> GetAll(string pokemonName) => _moveDao.Get(pokemonName);
 }

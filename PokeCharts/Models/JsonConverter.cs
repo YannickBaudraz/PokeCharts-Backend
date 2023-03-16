@@ -95,19 +95,19 @@ public class QueryConverter {
         return typeList;
     }
 
-    public List<Move> ToMoves(JToken jsonInput, bool isRoot=true)
+    public List<Move> ToPokemonMoves(JToken jsonInput, bool isRoot=true)
     {
-        var moves = isRoot? from move in jsonInput?["data"]?["Moves"] select move: jsonInput;
+        var moves = isRoot? from move in jsonInput?["data"]?["Pokemons"]?[0]?["Moves"]select move: jsonInput;
         List<Move> moveList = new List<Move>();
         foreach (JToken move in moves)
         {
-            int moveId = (int)move?["Id"]!;
-            string moveName = (string)move?["Name"]!;
-            int movePower = (move?["Power"]!.Type == JTokenType.Null)? 0 : (int)move?["Power"]!;
-            string damageClass = (string)move?["DamageClass"]?["Name"]!;
+            int moveId = (int)move?["Move"]?["Id"]!;
+            string moveName = (string)move?["Move"]?["Name"]!;
+            int movePower = (move?["Move"]?["Power"]!.Type == JTokenType.Null)? 0 : (int)move?["Move"]?["Power"]!;
+            string damageClass = (string)move?["Move"]?["DamageClass"]?["Name"]!;
             damageClass = char.ToUpper(damageClass[0]) + damageClass.Substring(1);
             Move.Categories category = Move.Categories.Parse<Move.Categories>(damageClass);
-            Type moveType = ToMoveType(move?["Type"]!);
+            Type moveType = ToMoveType(move?["Move"]?["Type"]!);
             moveList.Add(new Move(moveId, moveName, movePower, category, moveType));
         }
         return moveList;

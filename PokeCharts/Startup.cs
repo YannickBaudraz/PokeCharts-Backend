@@ -20,6 +20,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<IPokemonDao, PokemonDao>()
+            .AddSingleton<IPokemonMoveDao, PokemonMoveDao>()
             .AddSingleton<IModelExceptionHandler, MultipleModelExceptionHandlers>()
             .AddSingleton<ModelExceptionFilterAttribute>()
             .AddSingleton<SystemExceptionFilterAttribute>();

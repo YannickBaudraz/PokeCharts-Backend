@@ -13,6 +13,7 @@ public class QueryConverter {
     {
         _configuration = configuration;
     }
+
     public enum Models
     {
         Pokemons,
@@ -44,6 +45,7 @@ public class QueryConverter {
         
         return output;
     }
+
     public Stats ToStats(JToken jsonInput, bool isRoot=true)
     {
         var stats = isRoot? from stat in jsonInput?["data"]?["Stats"] select stat: jsonInput;
@@ -78,6 +80,7 @@ public class QueryConverter {
         return new Stats(statsList[0], statsList[1], statsList[2], statsList[3], statsList[4], statsList[5]);
 
     }
+
     public List<Type> ToTypes(JToken jsonInput, bool isRoot=true)
     {
         var types = isRoot? from type in jsonInput?["data"]?["Types"] select type: jsonInput;
@@ -91,6 +94,32 @@ public class QueryConverter {
         }
         return typeList;
     }
+
+    public List<Move> ToPokemonMoves(JToken jsonInput, bool isRoot=true)
+    {
+        var moves = isRoot? from move in jsonInput?["data"]?["Pokemons"]?[0]?["Moves"]select move: jsonInput;
+        List<Move> moveList = new List<Move>();
+        foreach (JToken move in moves)
+        {
+            int moveId = (int)move?["Move"]?["Id"]!;
+            string moveName = (string)move?["Move"]?["Name"]!;
+            int movePower = (move?["Move"]?["Power"]!.Type == JTokenType.Null)? 0 : (int)move?["Move"]?["Power"]!;
+            string damageClass = (string)move?["Move"]?["DamageClass"]?["Name"]!;
+            damageClass = char.ToUpper(damageClass[0]) + damageClass.Substring(1);
+            Move.Categories category = Move.Categories.Parse<Move.Categories>(damageClass);
+            Type moveType = ToMoveType(move?["Move"]?["Type"]!);
+            moveList.Add(new Move(moveId, moveName, movePower, category, moveType));
+        }
+        return moveList;
+    }
+    public Type ToMoveType(JToken type)
+    {
+
+        int typeId = (int)type?["Id"]!;
+        string typeName = (string)type?["Name"]!;
+        return new Type(typeId, typeName);
+    }
+
     public List<string> ToNamesList(JToken jsonInput, string model)
     {
         var entities = from entity in jsonInput?["data"]?[model] select entity;

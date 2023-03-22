@@ -1,0 +1,2388 @@
+[
+        {
+          "Id": 1,
+          "Name": "normal",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 0,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 2,
+          "Name": "fighting",
+          "DamageProperties": [
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 0,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 3,
+          "Name": "flying",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 4,
+          "Name": "poison",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 0,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 5,
+          "Name": "ground",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 0,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 6,
+          "Name": "rock",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 7,
+          "Name": "bug",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 8,
+          "Name": "ghost",
+          "DamageProperties": [
+            {
+              "Factor": 0,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 9,
+          "Name": "steel",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 10,
+          "Name": "fire",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 11,
+          "Name": "water",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 12,
+          "Name": "grass",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 13,
+          "Name": "electric",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 0,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 14,
+          "Name": "psychic",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 0,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 15,
+          "Name": "ice",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 16,
+          "Name": "dragon",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 0,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 17,
+          "Name": "dark",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 18,
+          "Name": "fairy",
+          "DamageProperties": [
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 1,
+                "Name": "normal"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 2,
+                "Name": "fighting"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 3,
+                "Name": "flying"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 4,
+                "Name": "poison"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 5,
+                "Name": "ground"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 6,
+                "Name": "rock"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 7,
+                "Name": "bug"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 8,
+                "Name": "ghost"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 9,
+                "Name": "steel"
+              }
+            },
+            {
+              "Factor": 50,
+              "OtherType": {
+                "Id": 10,
+                "Name": "fire"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 11,
+                "Name": "water"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 12,
+                "Name": "grass"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 13,
+                "Name": "electric"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 14,
+                "Name": "psychic"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 15,
+                "Name": "ice"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 16,
+                "Name": "dragon"
+              }
+            },
+            {
+              "Factor": 200,
+              "OtherType": {
+                "Id": 17,
+                "Name": "dark"
+              }
+            },
+            {
+              "Factor": 100,
+              "OtherType": {
+                "Id": 18,
+                "Name": "fairy"
+              }
+            }
+          ]
+        },
+        {
+          "Id": 10001,
+          "Name": "unknown",
+          "DamageProperties": []
+        },
+        {
+          "Id": 10002,
+          "Name": "shadow",
+          "DamageProperties": []
+        }
+]

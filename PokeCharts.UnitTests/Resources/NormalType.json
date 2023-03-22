@@ -1,0 +1,134 @@
+[
+    {
+      "Id": 1,
+      "Name": "normal",
+      "DamageProperties": [
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 1,
+            "Name": "normal"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 2,
+            "Name": "fighting"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 3,
+            "Name": "flying"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 4,
+            "Name": "poison"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 5,
+            "Name": "ground"
+          }
+        },
+        {
+          "Factor": 50,
+          "OtherType": {
+            "Id": 6,
+            "Name": "rock"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 7,
+            "Name": "bug"
+          }
+        },
+        {
+          "Factor": 0,
+          "OtherType": {
+            "Id": 8,
+            "Name": "ghost"
+          }
+        },
+        {
+          "Factor": 50,
+          "OtherType": {
+            "Id": 9,
+            "Name": "steel"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 10,
+            "Name": "fire"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 11,
+            "Name": "water"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 12,
+            "Name": "grass"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 13,
+            "Name": "electric"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 14,
+            "Name": "psychic"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 15,
+            "Name": "ice"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 16,
+            "Name": "dragon"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 17,
+            "Name": "dark"
+          }
+        },
+        {
+          "Factor": 100,
+          "OtherType": {
+            "Id": 18,
+            "Name": "fairy"
+          }
+        }
+      ]
+    }
+]

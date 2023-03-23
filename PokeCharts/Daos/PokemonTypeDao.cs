@@ -17,21 +17,23 @@ public class PokemonTypeDao : IPokemonTypeDao
         _queryConverter = new QueryConverter(configuration);
     }
 
-    private List<Type> SendQuery(string query)
-    {
-        JObject result = _client.Execute(query).Result;
-        return _queryConverter.ToTypes(result, true);
-    }
-
     public Type Get(int id)
     {
-        throw new NotImplementedException();
+        return SendQuery(ConditionalQuery("id", id.ToString())).FirstOrDefault()
+                    ?? throw new TypeNotFoundException(new ModelReference(id));
     }
 
     public Type Get(string name)
     {
-        throw new NotImplementedException();
+        return SendQuery(ConditionalQuery("name", name)).FirstOrDefault()
+                    ?? throw new TypeNotFoundException(new ModelReference(name));
     } 
+
+    private List<Type> SendQuery(string query)
+    {
+        JObject result = _client.Execute(query).Result;
+        return _queryConverter.ToTypes(result);
+    }
 
     public string ConditionalQuery(string field, string value)
     {
@@ -67,7 +69,6 @@ public class PokemonTypeDao : IPokemonTypeDao
                 )
             )
         ).Build();
-        Console.Write(query);
         return new List<Type>();
 
     }

@@ -17,6 +17,23 @@ public class PokemonTypeDao : IPokemonTypeDao
         _queryConverter = new QueryConverter(configuration);
     }
 
+    public List<Type> Get()
+    {
+        string query = new GraphQlQueryBuilder("")
+        .Field("Types: pokemon_v2_type", b => b
+            .Field("Id: id")
+            .Field("Name: name")
+            .Field("DamageProperties: pokemon_v2_typeefficacies", b => b
+                .Field("Factor: damage_factor")
+                .Field("OtherType: pokemonV2TypeByTargetTypeId", b => b
+                    .Field("Id: id")
+                    .Field("Name: name")
+                )
+            )
+        ).Build();
+        return SendQuery(query);
+    }
+
     public Type Get(int id)
     {
         return SendQuery(ConditionalQuery("id", id.ToString())).FirstOrDefault()
@@ -54,22 +71,5 @@ public class PokemonTypeDao : IPokemonTypeDao
             )
         ).Build();
     }
-
-    public List<Type> Get()
-    {
-        string query = new GraphQlQueryBuilder("")
-        .Field("Types: pokemon_v2_type", b => b
-            .Field("Id: id")
-            .Field("Name: name")
-            .Field("DamageProperties: pokemon_v2_typeefficacies", b => b
-                .Field("Factor: damage_factor")
-                .Field("OtherType: pokemonV2TypeByTargetTypeId", b => b
-                    .Field("Id: id")
-                    .Field("Name: name")
-                )
-            )
-        ).Build();
-        return new List<Type>();
-
-    }
+    
 }

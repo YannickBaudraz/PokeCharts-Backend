@@ -1,0 +1,1 @@
+{"id":3,"name":"flying","doubleDamageTo":[{"id":2,"name":"fighting"},{"id":7,"name":"bug"},{"id":12,"name":"grass"}],"halfDamageTo":[{"id":6,"name":"rock"},{"id":9,"name":"steel"},{"id":13,"name":"electric"}],"noDamageTo":[]}

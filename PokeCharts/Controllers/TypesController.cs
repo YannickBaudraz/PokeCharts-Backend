@@ -11,9 +11,9 @@ namespace PokeCharts.Controllers;
 [ApiController]
 public class TypesController : ControllerBase
 {
-    private readonly ITypeDao _typeDao;
+    private readonly IPokemonTypeDao _typeDao;
 
-    public TypesController(ITypeDao typeDao)
+    public TypesController(IPokemonTypeDao typeDao)
     {
         _typeDao = typeDao;
     }

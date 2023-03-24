@@ -3,7 +3,7 @@ using Type = PokeCharts.Models.Type;
 
 namespace PokeCharts.Daos;
 
-public interface ITypeDao
+public interface IPokemonTypeDao
 {
     Type Get(int id);
     Type Get(string name);

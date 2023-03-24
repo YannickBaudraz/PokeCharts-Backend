@@ -81,15 +81,47 @@ public class QueryConverter {
 
     }
 
+    private void AddDamagePropertiesToType(Type type, JToken damagePropertiesNode)
+    {
+        List<Type> doubleDamageTo = new List<Type>();
+        List<Type> halfDamageTo = new List<Type>();
+        List<Type> noDamageTo = new List<Type>();
+        foreach (JToken damageProperty in damagePropertiesNode)
+        {
+            int factor = (int)damageProperty["Factor"]!;
+            int otherTypeId = (int)damageProperty["OtherType"]?["Id"]!;
+            string otherTypeName = (string)damageProperty["OtherType"]?["Name"]!;
+            Type otherType = new Type(otherTypeId, otherTypeName);
+            switch (factor)
+            {
+                case 0:
+                noDamageTo.Add(otherType);
+                break;
+                case 50:
+                halfDamageTo.Add(otherType);
+                break;
+                case 200:
+                doubleDamageTo.Add(otherType);
+                break;
+            }
+            type.AddDamageProperties(doubleDamageTo, halfDamageTo, noDamageTo);
+        }
+    }
+
     public List<Type> ToTypes(JToken jsonInput, bool isRoot=true)
     {
         var types = isRoot? from type in jsonInput?["data"]?["Types"] select type: jsonInput;
         List<Type> typeList = new List<Type>();
         foreach (JToken type in types)
         {
-            int typeId = (int)type?["Type"]?["Id"]!;
-            string typeName = (string)type?["Type"]?["Name"]!;
+            int typeId = type?["Type"] != null ? (int)type["Type"]?["Id"]! : (int)type?["Id"]!;
+            string typeName = type?["Type"] != null ? (string)type?["Type"]?["Name"]! : (string)type?["Name"]!;
             Type type1 = new Type(typeId, typeName);
+            if(type?["DamageProperties"] != null ||  type?["Type"]?["DamageProperties"] != null){
+                JToken damagePropertiesNode = type?["DamageProperties"] ?? type?["Type"]?["DamageProperties"]!;
+                AddDamagePropertiesToType(type1, damagePropertiesNode);
+            }         
+
             typeList.Add(type1);
         }
         return typeList;

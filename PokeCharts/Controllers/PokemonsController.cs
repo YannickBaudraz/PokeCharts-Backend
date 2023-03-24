@@ -28,9 +28,14 @@ public class PokemonsController : ControllerBase
     [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
     public ActionResult<List<string>> GetNames() => _pokemonDao.GetNames();
 
+    [HttpGet("Attack")]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+    public ActionResult<List<float>> Attack(int attackerId,int targetId, int moveId) => 
+        _pokemonDao.GetDamage(attackerId,targetId,moveId);
+
     [HttpGet("Filter")]
     [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-public ActionResult<List<Pokemon>> GetFiltered(string types, string stat, string? conditions, int? conditionValue) => 
+    public ActionResult<List<Pokemon>> GetFiltered(string types, string stat, string? conditions, int? conditionValue) => 
         _pokemonDao.GetFiltered(types, stat, conditions, conditionValue);
     
         

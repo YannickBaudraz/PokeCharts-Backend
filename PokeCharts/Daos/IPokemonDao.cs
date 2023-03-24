@@ -8,6 +8,6 @@ public interface IPokemonDao
     Pokemon Get(string name);
     List<Pokemon> Get();
     List<string> GetNames();
-
     List<Pokemon> GetFiltered(string types, string stat, string? conditions, int? conditionValue);
+    List<float> GetDamage(int attackerId, int targetId, int moveId);
 }

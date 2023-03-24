@@ -9,9 +9,13 @@ public class PokemonDao : IPokemonDao
 {
     private readonly GraphQlClient _client;
     private readonly QueryConverter _queryConverter;
+    private readonly IMoveDao _moveDao;
+    private readonly IPokemonTypeDao _pokemonTypeDao;
 
-    public PokemonDao(IConfiguration configuration)
+    public PokemonDao(IConfiguration configuration, IMoveDao moveDao, IPokemonTypeDao pokemonTypeDao)
     {
+        _moveDao = moveDao;
+        _pokemonTypeDao = pokemonTypeDao;
         _client = new GraphQlClient(configuration);
         _queryConverter = new QueryConverter(configuration);
     }
@@ -194,5 +198,34 @@ public class PokemonDao : IPokemonDao
             newList = newList.Except(currentList).ToList();
         }
         return newList;
+    }
+
+    public List<float> GetDamage(int attackerId, int targetId, int moveId)
+    {
+        //transform all ids into their objects
+        Pokemon attacker = Get(attackerId);
+        Pokemon target = Get(targetId);
+        Move move = _moveDao.Get(moveId);
+        //get detailed type for move
+        PokeCharts.Models.Type moveType = _pokemonTypeDao.Get(move.Type.id);
+        //calculate damage multiplier
+        float damageMultiplier = 1;
+        foreach (PokeCharts.Models.Type type in target.Types!)
+        {
+            if (moveType.doubleDamageTo!.Contains(type))
+            {
+                damageMultiplier = damageMultiplier * 2;
+            }
+            else if (moveType.halfDamageTo!.Contains(type))
+            {
+                damageMultiplier = damageMultiplier * 0.5f;
+            }
+            else if (moveType.noDamageTo!.Contains(type))
+            {
+                damageMultiplier = damageMultiplier * 0;
+            }
+        }
+        float damagedealt = (((((2 * 50) / 5f) + 2) * move.Power * ((float)attacker.Stats!.Attack / (float)target.Stats!.Defense)) / 50f) * damageMultiplier;
+        return new List<float> {damagedealt,damageMultiplier};
     }
 }

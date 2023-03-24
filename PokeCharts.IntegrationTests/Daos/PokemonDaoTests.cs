@@ -19,7 +19,7 @@ public class PokemonDaoIntegrationTests
             .AddJsonFile("appsettings.json")
             .Build();
 
-        _pokemonDao = new PokemonDao(_configuration);
+        _pokemonDao = new PokemonDao(_configuration,new MoveDao(_configuration),new PokemonTypeDao(_configuration));
     }
 
     [Test]

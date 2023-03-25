@@ -102,4 +102,19 @@ public class PokemonDaoIntegrationTests
         //then
         Assert.That(actualList, Is.EqualTo(expectedList));
     }
+    [Test]
+    public void GetDamage_NominalCase_ReturnsDamage()
+    {
+        //given
+        int attackerId = 1;
+        int defenderId = 2;
+        int moveId = 1;
+        float expectedDamage = 13.6888895f;
+        float expectedMultiplier = 1f;
+        //when
+        List<float> actualDamage = _pokemonDao.GetDamage(attackerId, defenderId, moveId);
+        //then
+        Assert.That(actualDamage[0], Is.EqualTo(expectedDamage));
+        Assert.That(actualDamage[1], Is.EqualTo(expectedMultiplier));
+    }
 }

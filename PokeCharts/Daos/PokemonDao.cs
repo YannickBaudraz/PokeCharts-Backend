@@ -212,18 +212,9 @@ public class PokemonDao : IPokemonDao
         float damageMultiplier = 1;
         foreach (PokeCharts.Models.Type type in target.Types!)
         {
-            if (moveType.doubleDamageTo!.Contains(type))
-            {
-                damageMultiplier = damageMultiplier * 2;
-            }
-            else if (moveType.halfDamageTo!.Contains(type))
-            {
-                damageMultiplier = damageMultiplier * 0.5f;
-            }
-            else if (moveType.noDamageTo!.Contains(type))
-            {
-                damageMultiplier = damageMultiplier * 0;
-            }
+            moveType.doubleDamageTo!.Where((t) => t.id == type.id).ToList().ForEach((t) => damageMultiplier = damageMultiplier * 2);
+            moveType.halfDamageTo!.Where((t) => t.id == type.id).ToList().ForEach((t) => damageMultiplier = damageMultiplier * 0.5f);
+            moveType.noDamageTo!.Where((t) => t.id == type.id).ToList().ForEach((t) => damageMultiplier = damageMultiplier * 0);
         }
         float damagedealt = (((((2 * 50) / 5f) + 2) * move.Power * ((float)attacker.Stats!.Attack / (float)target.Stats!.Defense)) / 50f) * damageMultiplier;
         return new List<float> {damagedealt,damageMultiplier};

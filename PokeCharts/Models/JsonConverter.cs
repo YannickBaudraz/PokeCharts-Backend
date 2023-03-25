@@ -129,7 +129,7 @@ public class QueryConverter {
 
     public List<Move> ToPokemonMoves(JToken jsonInput, bool isRoot=true)
     {
-        var moves = isRoot? from move in jsonInput?["data"]?["Pokemons"]?["Moves"] select move: jsonInput;
+        var moves = isRoot? from move in jsonInput?["data"]?["Pokemons"]?[0]?["Moves"] select move: jsonInput;
         List<Move> moveList = new List<Move>();
         foreach (JToken move in moves)
         {

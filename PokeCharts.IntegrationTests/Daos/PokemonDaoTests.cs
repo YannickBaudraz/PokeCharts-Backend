@@ -19,7 +19,7 @@ public class PokemonDaoIntegrationTests
             .AddJsonFile("appsettings.json")
             .Build();
 
-        _pokemonDao = new PokemonDao(_configuration);
+        _pokemonDao = new PokemonDao(_configuration,new MoveDao(_configuration),new PokemonTypeDao(_configuration));
     }
 
     [Test]
@@ -101,5 +101,20 @@ public class PokemonDaoIntegrationTests
         string actualList = pokemons.ToJson();
         //then
         Assert.That(actualList, Is.EqualTo(expectedList));
+    }
+    [Test]
+    public void GetDamage_NominalCase_ReturnsDamage()
+    {
+        //given
+        int attackerId = 1;
+        int defenderId = 2;
+        int moveId = 1;
+        float expectedDamage = 13.6888895f;
+        float expectedMultiplier = 1f;
+        //when
+        List<float> actualDamage = _pokemonDao.GetDamage(attackerId, defenderId, moveId);
+        //then
+        Assert.That(actualDamage[0], Is.EqualTo(expectedDamage));
+        Assert.That(actualDamage[1], Is.EqualTo(expectedMultiplier));
     }
 }

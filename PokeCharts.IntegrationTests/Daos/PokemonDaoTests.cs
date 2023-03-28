@@ -3,6 +3,7 @@ using NuGet.Protocol;
 using PokeCharts.Daos;
 using PokeCharts.Exceptions;
 using PokeCharts.Models;
+using PokeCharts.Models.Dtos;
 using Type = PokeCharts.Models.Type;
 
 namespace PokeCharts.IntegrationTests.Daos;
@@ -36,6 +37,7 @@ public class PokemonDaoIntegrationTests
 
         //when
         object results = _pokemonDao.Get(expectedPokemon.Id);
+
         //then
         Assert.That(expectedPokemon.ToJson(), Is.EqualTo(results.ToJson()));
     }
@@ -54,6 +56,7 @@ public class PokemonDaoIntegrationTests
 
         //when
         object results = _pokemonDao.Get(expectedPokemon.Name);
+
         //then
         Assert.That(expectedPokemon.ToJson(), Is.EqualTo(results.ToJson()));
     }
@@ -63,6 +66,7 @@ public class PokemonDaoIntegrationTests
     {
         //given
         int id = -1;
+
         //then
         Assert.Throws<PokemonNotFoundException>(() => _pokemonDao.Get(id));
     }
@@ -72,6 +76,7 @@ public class PokemonDaoIntegrationTests
     {
         //given
         string name = "picachu";
+
         //then
         Assert.Throws<PokemonNotFoundException>(() => _pokemonDao.Get(name));
     }
@@ -81,25 +86,28 @@ public class PokemonDaoIntegrationTests
     {
         //given
         //load the json file from the resources folder
-        string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PokemonList.json");
+        string expectedList = File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PokemonList.json");
 
         //when
         List<Pokemon> pokemons = _pokemonDao.Get();
         string actualList = pokemons.ToJson();
+
         //then
         Assert.That(actualList, Is.EqualTo(expectedList));
     }
+
     [Test]
-    public void GetNames_NominalCase_ReturnsAllPokemonNames()
+    public void GetLight_NominalCase_ReturnsAllPokemonNames()
     {
         //given
         //load the json file from the resources folder
-        string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PokemonNameList.json");
+        string expectedList = File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PokemonNameList.json");
 
         //when
-        List<string> pokemons = _pokemonDao.GetNames();
-        string actualList = pokemons.ToJson();
+        List<PokemonLightDto> pokemons = _pokemonDao.GetLights();
+
         //then
+        string actualList = pokemons.Select(p => p.Name).ToJson();
         Assert.That(actualList, Is.EqualTo(expectedList));
     }
 }

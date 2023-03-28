@@ -1,18 +1,16 @@
-using PokeCharts.GraphQl;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PokeCharts.Models;
-using Type = PokeCharts.Models.Type;
+
 namespace PokeCharts.Models;
 
-public class QueryConverter {
-
-    private IConfiguration _configuration;
+public class QueryConverter
+{
+    private readonly IConfiguration _configuration;
 
     public QueryConverter(IConfiguration configuration)
     {
         _configuration = configuration;
     }
+
     public enum Models
     {
         Pokemons,
@@ -20,39 +18,62 @@ public class QueryConverter {
         Stats
     }
 
-    public List<Pokemon> ToPokemons(JObject jsonInput, bool isRoot=true)
+    public List<Pokemon> ToPokemons(JObject jsonInput, bool isRoot = true)
     {
-        var pokemons = isRoot? from pokemon in jsonInput?["data"]?["Pokemons"] select pokemon: jsonInput;
+        var pokemons = isRoot
+            ? from pokemon in jsonInput?["data"]?["Pokemons"] select pokemon
+            : jsonInput;
+
         List<Pokemon> output = new List<Pokemon>();
 
         foreach (JToken step in pokemons)
         {
-
             int pokemonId = (int)step["Id"]!;
             string name = (string)step["Name"]!;
             float height = (float)step["Height"]!;
             float weight = (float)step["Weight"]!;
-            string urlSuffix = _configuration.GetValue<string>("GraphQl:SpriteSuffix") ?? throw new ArgumentException("The GraphQL sprite suffix is not configured");
+            string urlSuffix = _configuration.GetValue<string>("GraphQl:SpriteSuffix")
+                               ?? throw new ArgumentException("The GraphQL sprite suffix is not configured");
+
             string mainUrl = urlSuffix + "" + pokemonId + ".png";
             string shinyUrl = urlSuffix + "shiny/" + pokemonId + ".png";
-            PokemonSprites sprites = new PokemonSprites(mainUrl, shinyUrl);            
+            PokemonSprites sprites = new PokemonSprites(mainUrl, shinyUrl);
             Stats pokemonStats = ToStats(step?["Stats"]!, false);
-            Type[] typeList = ToTypes(step?["Types"]!,false).ToArray();
+            Type[] typeList = ToTypes(step?["Types"]!, false).ToArray();
             Pokemon pokemon = new Pokemon(pokemonId, name, height, weight, sprites, pokemonStats, typeList);
             output.Add(pokemon);
         }
-        
+
         return output;
     }
-    public Stats ToStats(JToken jsonInput, bool isRoot=true)
+
+    public List<string> ToNamesList(JToken jsonInput, string model)
     {
-        var stats = isRoot? from stat in jsonInput?["data"]?["Stats"] select stat: jsonInput;
+        var entities = from entity in jsonInput?["data"]?[model] select entity;
+        List<string> nameList = new List<string>();
+
+        foreach (JToken step in entities)
+        {
+            nameList.Add((string)step?["Name"]!);
+        }
+
+        return nameList;
+    }
+
+    public Stats ToStats(JToken jsonInput, bool isRoot = true)
+    {
+        var stats = isRoot
+            ? from stat in jsonInput?["data"]?["Stats"] select stat
+            : jsonInput;
+
         int[] statsList = new int[] { 0, 0, 0, 0, 0, 0 };
+
         foreach (JToken stat in stats)
         {
             int statsId = (int)stat?["Stat"]?["Id"]!;
             string statsName = (string)stat?["Stat"]?["Name"]!;
             int statsBaseStat = (int)stat?["BaseStat"]!;
+
             switch (statsName)
             {
                 case "hp":
@@ -75,13 +96,18 @@ public class QueryConverter {
                     break;
             }
         }
-        return new Stats(statsList[0], statsList[1], statsList[2], statsList[3], statsList[4], statsList[5]);
 
+        return new Stats(statsList[0], statsList[1], statsList[2], statsList[3], statsList[4], statsList[5]);
     }
-    public List<Type> ToTypes(JToken jsonInput, bool isRoot=true)
+
+    public List<Type> ToTypes(JToken jsonInput, bool isRoot = true)
     {
-        var types = isRoot? from type in jsonInput?["data"]?["Types"] select type: jsonInput;
+        var types = isRoot
+            ? from type in jsonInput?["data"]?["Types"] select type
+            : jsonInput;
+
         List<Type> typeList = new List<Type>();
+
         foreach (JToken type in types)
         {
             int typeId = (int)type?["Type"]?["Id"]!;
@@ -89,16 +115,7 @@ public class QueryConverter {
             Type type1 = new Type(typeId, typeName);
             typeList.Add(type1);
         }
+
         return typeList;
-    }
-    public List<string> ToNamesList(JToken jsonInput, string model)
-    {
-        var entities = from entity in jsonInput?["data"]?[model] select entity;
-        List<string> nameList = new List<string>();
-        foreach (JToken step in entities)
-        {
-            nameList.Add((string)step?["Name"]!);
-        }
-        return nameList;
     }
 }

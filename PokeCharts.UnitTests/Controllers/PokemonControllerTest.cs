@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PokeCharts.Controllers;
 using PokeCharts.Daos;
 using PokeCharts.Models;
+using PokeCharts.Models.Dtos;
 using Type = PokeCharts.Models.Type;
 
 namespace PokeCharts.UnitTests.Controllers;
@@ -27,6 +29,7 @@ public class PokemonControllerTest
         Type[] types = new[] { new Type(2, "fire"), new Type(1, "water") };
         PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png");
+
         List<Pokemon> pokemons = new()
         {
             new Pokemon(1, "squirtle", 7, 69, sprites, stats, types),
@@ -38,10 +41,10 @@ public class PokemonControllerTest
         _pokemonDaoMock.Setup(m => m.Get()).Returns(pokemons);
 
         //when
-        List<Pokemon>? results = _pokemonsController.Get().Value;
+        var results = _pokemonsController.Get().Result as OkObjectResult;
 
         //then
-        Assert.That(results, Is.EqualTo(pokemons));
+        Assert.That(results?.Value, Is.EqualTo(pokemons));
     }
 
     [Test]
@@ -49,14 +52,16 @@ public class PokemonControllerTest
     {
         //given
         PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png");
-        Pokemon expectedPokemon = new(25, "pikachu", 7, 55, sprites, new Stats(1, 2, 3, 4, 5, 6), new[] { new Type(2, "fire"), new Type(1, "water") });
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png");
+
+        Pokemon expectedPokemon = new(25, "pikachu", 7, 55, sprites, new Stats(1, 2, 3, 4, 5, 6),
+            new[] { new Type(2, "fire"), new Type(1, "water") });
 
         _pokemonDaoMock.Setup(m => m.Get("pikachu")).Returns(expectedPokemon);
 
         //when
         Pokemon? results = _pokemonsController.Get("pikachu").Value;
-        
+
         //then
         Assert.That(results, Is.EqualTo(expectedPokemon));
     }
@@ -77,7 +82,9 @@ public class PokemonControllerTest
         //given
         PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png");
-        Pokemon expectedPokemon = new(25, "pikachu", 7, 55, sprites, new Stats(1, 2, 3, 4, 5, 6), new[] { new Type(2, "fire"), new Type(1, "water") });
+
+        Pokemon expectedPokemon = new(25, "pikachu", 7, 55, sprites, new Stats(1, 2, 3, 4, 5, 6),
+            new[] { new Type(2, "fire"), new Type(1, "water") });
 
         _pokemonDaoMock.Setup(m => m.Get(25)).Returns(expectedPokemon);
 
@@ -97,17 +104,24 @@ public class PokemonControllerTest
         //when & then
         Assert.Throws<Exception>(() => _pokemonsController.Get(-1));
     }
-    [Test]
-    public void GetNames_NoParameter_ReturnsPokemonNames()
-    {
 
+    [Test]
+    public void Get_LightParameter_ReturnsPokemonLight()
+    {
         //given
         List<string> names = new() { "pikachu", "charmander", "squirtle" };
-        _pokemonDaoMock.Setup(m => m.GetNames()).Returns(names);
+        _pokemonDaoMock
+            .Setup(m => m.GetLights())
+            .Returns(names.Select(name => new PokemonLightDto(name)).ToList);
 
         //when
-         List<string>? results = _pokemonsController.GetNames().Value;
+        var result = _pokemonsController.Get(true).Result as ObjectResult;
+        var values = result!.Value as List<PokemonLightDto>;
+
         //then
-        Assert.That(results, Is.EqualTo(names));
+        Assert.That(values, Is.InstanceOf(typeof(List<PokemonLightDto>)));
+
+        List<string> resultNames = values!.Select(r => r.Name).ToList();
+        Assert.That(resultNames, Is.EqualTo(names));
     }
 }

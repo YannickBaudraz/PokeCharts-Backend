@@ -1,13 +1,10 @@
+using PokeCharts.Models;
 using Type = PokeCharts.Models.Type;
-using Pokemon = PokeCharts.Models.Pokemon;
-using Stats = PokeCharts.Models.Stats;
-using PokemonSprites = PokeCharts.Models.PokemonSprites;
 
 namespace PokeCharts.UnitTests.Model;
 
-
 [TestFixture]
-public class PokemonTests 
+public class PokemonTests
 {
     // Required attributes to create a pokemon
     private int _id = 6;
@@ -26,11 +23,12 @@ public class PokemonTests
     {
         // Given
         // Refer to class attributes
-        Type[] pokemonTypes = {_firstType, _secondType};
+        Type[] pokemonTypes = { _firstType, _secondType };
 
         // When 
         // Then
-        Assert.DoesNotThrow(() => {
+        Assert.DoesNotThrow(() =>
+        {
             Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
         });
     }
@@ -40,12 +38,13 @@ public class PokemonTests
     {
         // Given
         // Refer to class attributes
-        Type[] pokemonTypes = {};
+        Type[] pokemonTypes = { };
 
         // When 
         // Then
 
-        Assert.Throws<ArgumentException>(() => {
+        Assert.Throws<ArgumentException>(() =>
+        {
             Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
         });
     }
@@ -55,15 +54,14 @@ public class PokemonTests
     {
         // Given
         // Refer to class attributes
-        Type[] pokemonTypes = {_firstType, _secondType, _thirdType};
+        Type[] pokemonTypes = { _firstType, _secondType, _thirdType };
 
         // When 
         // Then
 
-        Assert.Throws<ArgumentException>(() => {
+        Assert.Throws<ArgumentException>(() =>
+        {
             Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
         });
     }
-
 }
-

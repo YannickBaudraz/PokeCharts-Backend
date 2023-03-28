@@ -1,7 +1,9 @@
-﻿﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using PokeCharts.Exceptions;
 using PokeCharts.GraphQl;
 using PokeCharts.Models;
+using PokeCharts.Models.Dtos;
+using PokeCharts.Requests;
 
 namespace PokeCharts.Daos;
 
@@ -53,14 +55,18 @@ public class PokemonDao : IPokemonDao
 
         return SendQuery(query);
     }
-    public List<string> GetNames()
+
+    public List<PokemonLightDto> GetLights()
     {
         string query = new GraphQlQueryBuilder("")
-          .Field("Pokemons: pokemon_v2_pokemon", b => b
-            .Field("Name: name")
-          ).Build();
-        var result = _client.Execute(query).Result;
-        return _queryConverter.ToNamesList(result, "Pokemons");
+            .Field("Pokemons: pokemon_v2_pokemon", b => b
+                .Field("Name: name")
+            ).Build();
+
+        JObject result = _client.Execute(query).Result;
+        List<string> names = _queryConverter.ToNamesList(result, "Pokemons");
+
+        return names.Select(name => new PokemonLightDto(name)).ToList();
     }
 
     private List<Pokemon> SendQuery(string query)
@@ -97,14 +103,14 @@ public class PokemonDao : IPokemonDao
             ).Build();
     }
 
-    public List<Pokemon> GetFiltered(string types, string stat, string? conditions, int? conditionValue)
+    public List<Pokemon> GetFiltered(PokemonsFilter pokemonsFilter)
     {
-        List<Pokemon> currentList = new List<Pokemon>();
+        var currentList = new List<Pokemon>();
         List<Pokemon> newList = currentList;
         string currentQuery;
 
         // Split the types and for each type, get all pokemons of that type
-        foreach (string type in types.Split(","))
+        foreach (string type in pokemonsFilter.Types.Split(","))
         {
             currentQuery = new GraphQlQueryBuilder("")
                 .FieldWithArguments("Pokemons: pokemon_v2_pokemon", b => b
@@ -132,65 +138,41 @@ public class PokemonDao : IPokemonDao
                         .Field("BaseStat: base_stat")
                     )
                 ).Build();
+
             currentList = SendQuery(currentQuery);
             newList = newList.Except(currentList).ToList();
             currentList = currentList.Except(newList).ToList();
             newList = newList.Union(currentList).ToList();
-            
         }
 
-        if (conditions != null)
-        {
-            // Make the currentList equal to the newList
-            currentList = newList;
+        if (pokemonsFilter.Conditions == null) return newList;
 
-            foreach (string condition in conditions.Split(","))
-            {
-                // remove all pokemons from the currentList that have a stat greater than the conditionValue
-                currentList = currentList.Where((p) =>
+        // Make the currentList equal to the newList
+        currentList = pokemonsFilter.Conditions
+            .Split(",")
+            .Aggregate(newList, (current, condition) => current.Where((p) =>
                 {
-                    int statValue = 0;
-                    switch (stat)
+                    int statValue = pokemonsFilter.Stat switch
                     {
-                        case "health":
-                            statValue = p.Stats!.Hp;
-                            break;
-                        case "attack":
-                            statValue = p.Stats!.Attack;
-                            break;
-                        case "defense":
-                            statValue = p.Stats!.Defense;
-                            break;
-                        case "specialattack":
-                            statValue = p.Stats!.SpecialAttack;
-                            break;
-                        case "specialdefense":
-                            statValue = p.Stats!.SpecialDefense;
-                            break;
-                        case "speed":
-                            statValue = p.Stats!.Speed;
-                            break;
-                        default:
-                            break;
-                    }
-                    switch (condition)
-                    {
-                        case ">":
-                            return statValue <= conditionValue;
-                        case "<":
-                            return statValue >= conditionValue;
-                        case "=":
-                            return statValue != conditionValue;
-                        default:
-                            return false;
-                    }
-                }
-                ).ToList();
+                        "health" => p.Stats!.Hp,
+                        "attack" => p.Stats!.Attack,
+                        "defense" => p.Stats!.Defense,
+                        "specialattack" => p.Stats!.SpecialAttack,
+                        "specialdefense" => p.Stats!.SpecialDefense,
+                        "speed" => p.Stats!.Speed,
+                        _ => 0
+                    };
 
-            }
-            // remove all pokemons from the newList that are in the currentList
-            newList = newList.Except(currentList).ToList();
-        }
-        return newList;
+                    return condition switch
+                    {
+                        ">" => statValue <= pokemonsFilter.ConditionValue,
+                        "<" => statValue >= pokemonsFilter.ConditionValue,
+                        "=" => statValue != pokemonsFilter.ConditionValue,
+                        _ => false
+                    };
+                })
+                .ToList());
+
+        return newList.Except(currentList).ToList();
     }
 }

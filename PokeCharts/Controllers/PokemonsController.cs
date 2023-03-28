@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using PokeCharts.Daos;
 using PokeCharts.Models;
+using PokeCharts.Requests;
 
 namespace PokeCharts.Controllers;
 
@@ -16,7 +18,22 @@ public class PokemonsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Pokemon>> Get() => _pokemonDao.Get();
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+    [ProducesResponseType(typeof(List<Pokemon>), (int)HttpStatusCode.OK)]
+    public ActionResult<List<object>> Get([FromQuery] bool light = false, [FromQuery] PokemonsFilter? filter = null)
+    {
+        bool filterIsNotEmpty = filter is not null && filter.IsNotEmpty();
+        if (light && filterIsNotEmpty)
+            throw new ArgumentException("Cannot use both light and filter");
+
+        if (light)
+            return Ok(_pokemonDao.GetLights());
+
+        if (filterIsNotEmpty)
+            return Ok(_pokemonDao.GetFiltered(filter!));
+
+        return Ok(_pokemonDao.Get());
+    }
 
     [HttpGet("{id:int}")]
     public ActionResult<Pokemon> Get(int id) => _pokemonDao.Get(id);
@@ -24,19 +41,9 @@ public class PokemonsController : ControllerBase
     [HttpGet("{name}")]
     [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
     public ActionResult<Pokemon> Get(string name) => _pokemonDao.Get(name);
-    [HttpGet("Names")]
-    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-    public ActionResult<List<string>> GetNames() => _pokemonDao.GetNames();
 
     [HttpGet("Attack")]
     [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-    public ActionResult<List<float>> Attack(int attackerId,int targetId, int moveId) => 
-        _pokemonDao.GetDamage(attackerId,targetId,moveId);
-
-    [HttpGet("Filter")]
-    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-    public ActionResult<List<Pokemon>> GetFiltered(string types, string stat, string? conditions, int? conditionValue) => 
-        _pokemonDao.GetFiltered(types, stat, conditions, conditionValue);
-    
-        
+    public ActionResult<List<float>> Attack(int attackerId, int targetId, int moveId) =>
+        _pokemonDao.GetDamage(attackerId, targetId, moveId);
 }

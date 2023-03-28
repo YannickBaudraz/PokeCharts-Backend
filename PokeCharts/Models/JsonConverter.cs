@@ -1,13 +1,10 @@
-using PokeCharts.GraphQl;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PokeCharts.Models;
-using Type = PokeCharts.Models.Type;
+
 namespace PokeCharts.Models;
 
-public class QueryConverter {
-
-    private IConfiguration _configuration;
+public class QueryConverter
+{
+    private readonly IConfiguration _configuration;
 
     public QueryConverter(IConfiguration configuration)
     {
@@ -21,40 +18,62 @@ public class QueryConverter {
         Stats
     }
 
-    public List<Pokemon> ToPokemons(JObject jsonInput, bool isRoot=true)
+    public List<Pokemon> ToPokemons(JObject jsonInput, bool isRoot = true)
     {
-        var pokemons = isRoot? from pokemon in jsonInput?["data"]?["Pokemons"] select pokemon: jsonInput;
+        var pokemons = isRoot
+            ? from pokemon in jsonInput?["data"]?["Pokemons"] select pokemon
+            : jsonInput;
+
         List<Pokemon> output = new List<Pokemon>();
 
         foreach (JToken step in pokemons)
         {
-
             int pokemonId = (int)step["Id"]!;
             string name = (string)step["Name"]!;
             float height = (float)step["Height"]!;
             float weight = (float)step["Weight"]!;
-            string urlSuffix = _configuration.GetValue<string>("GraphQl:SpriteSuffix") ?? throw new ArgumentException("The GraphQL sprite suffix is not configured");
+            string urlSuffix = _configuration.GetValue<string>("GraphQl:SpriteSuffix")
+                               ?? throw new ArgumentException("The GraphQL sprite suffix is not configured");
+
             string mainUrl = urlSuffix + "" + pokemonId + ".png";
             string shinyUrl = urlSuffix + "shiny/" + pokemonId + ".png";
-            PokemonSprites sprites = new PokemonSprites(mainUrl, shinyUrl);            
+            PokemonSprites sprites = new PokemonSprites(mainUrl, shinyUrl);
             Stats pokemonStats = ToStats(step?["Stats"]!, false);
-            Type[] typeList = ToTypes(step?["Types"]!,false).ToArray();
+            Type[] typeList = ToTypes(step?["Types"]!, false).ToArray();
             Pokemon pokemon = new Pokemon(pokemonId, name, height, weight, sprites, pokemonStats, typeList);
             output.Add(pokemon);
         }
-        
+
         return output;
     }
 
-    public Stats ToStats(JToken jsonInput, bool isRoot=true)
+    public List<string> ToNamesList(JToken jsonInput, string model)
     {
-        var stats = isRoot? from stat in jsonInput?["data"]?["Stats"] select stat: jsonInput;
+        var entities = from entity in jsonInput?["data"]?[model] select entity;
+        List<string> nameList = new List<string>();
+
+        foreach (JToken step in entities)
+        {
+            nameList.Add((string)step?["Name"]!);
+        }
+
+        return nameList;
+    }
+
+    public Stats ToStats(JToken jsonInput, bool isRoot = true)
+    {
+        var stats = isRoot
+            ? from stat in jsonInput?["data"]?["Stats"] select stat
+            : jsonInput;
+
         int[] statsList = new int[] { 0, 0, 0, 0, 0, 0 };
+
         foreach (JToken stat in stats)
         {
             int statsId = (int)stat?["Stat"]?["Id"]!;
             string statsName = (string)stat?["Stat"]?["Name"]!;
             int statsBaseStat = (int)stat?["BaseStat"]!;
+
             switch (statsName)
             {
                 case "hp":
@@ -77,8 +96,8 @@ public class QueryConverter {
                     break;
             }
         }
-        return new Stats(statsList[0], statsList[1], statsList[2], statsList[3], statsList[4], statsList[5]);
 
+        return new Stats(statsList[0], statsList[1], statsList[2], statsList[3], statsList[4], statsList[5]);
     }
 
     private void AddDamagePropertiesToType(Type type, JToken damagePropertiesNode)
@@ -86,93 +105,113 @@ public class QueryConverter {
         List<Type> doubleDamageTo = new List<Type>();
         List<Type> halfDamageTo = new List<Type>();
         List<Type> noDamageTo = new List<Type>();
+
         foreach (JToken damageProperty in damagePropertiesNode)
         {
             int factor = (int)damageProperty["Factor"]!;
             int otherTypeId = (int)damageProperty["OtherType"]?["Id"]!;
             string otherTypeName = (string)damageProperty["OtherType"]?["Name"]!;
             Type otherType = new Type(otherTypeId, otherTypeName);
+
             switch (factor)
             {
                 case 0:
-                noDamageTo.Add(otherType);
-                break;
+                    noDamageTo.Add(otherType);
+                    break;
                 case 50:
-                halfDamageTo.Add(otherType);
-                break;
+                    halfDamageTo.Add(otherType);
+                    break;
                 case 200:
-                doubleDamageTo.Add(otherType);
-                break;
+                    doubleDamageTo.Add(otherType);
+                    break;
             }
+
             type.AddDamageProperties(doubleDamageTo, halfDamageTo, noDamageTo);
         }
     }
 
-    public List<Type> ToTypes(JToken jsonInput, bool isRoot=true)
+    public List<Type> ToTypes(JToken jsonInput, bool isRoot = true)
     {
-        var types = isRoot? from type in jsonInput?["data"]?["Types"] select type: jsonInput;
+        var types = isRoot
+            ? from type in jsonInput?["data"]?["Types"] select type
+            : jsonInput;
+
         List<Type> typeList = new List<Type>();
+
         foreach (JToken type in types)
         {
-            int typeId = type?["Type"] != null ? (int)type["Type"]?["Id"]! : (int)type?["Id"]!;
-            string typeName = type?["Type"] != null ? (string)type?["Type"]?["Name"]! : (string)type?["Name"]!;
+            int typeId = type?["Type"] != null
+                ? (int)type["Type"]?["Id"]!
+                : (int)type?["Id"]!;
+
+            string typeName = type?["Type"] != null
+                ? (string)type?["Type"]?["Name"]!
+                : (string)type?["Name"]!;
+
             Type type1 = new Type(typeId, typeName);
-            if(type?["DamageProperties"] != null ||  type?["Type"]?["DamageProperties"] != null){
+
+            if (type?["DamageProperties"] != null || type?["Type"]?["DamageProperties"] != null)
+            {
                 JToken damagePropertiesNode = type?["DamageProperties"] ?? type?["Type"]?["DamageProperties"]!;
                 AddDamagePropertiesToType(type1, damagePropertiesNode);
-            }         
+            }
 
             typeList.Add(type1);
         }
+
         return typeList;
     }
 
-    public List<Move> ToPokemonMoves(JToken jsonInput, bool isRoot=true)
+    public List<Move> ToPokemonMoves(JToken jsonInput, bool isRoot = true)
     {
-        var moves = isRoot? from move in jsonInput?["data"]?["Pokemons"]?[0]?["Moves"] select move: jsonInput;
+        var moves = isRoot
+            ? from move in jsonInput?["data"]?["Pokemons"]?[0]?["Moves"] select move
+            : jsonInput;
+
         List<Move> moveList = new List<Move>();
+
         foreach (JToken move in moves)
         {
             int moveId = (int)move?["Move"]?["Id"]!;
             string moveName = (string)move?["Move"]?["Name"]!;
-            int movePower = (move?["Move"]?["Power"]!.Type == JTokenType.Null)? 0 : (int)move?["Move"]?["Power"]!;
+            int movePower = (move?["Move"]?["Power"]!.Type == JTokenType.Null)
+                ? 0
+                : (int)move?["Move"]?["Power"]!;
+
             string damageClass = (string)move?["Move"]?["DamageClass"]?["Name"]!;
             damageClass = char.ToUpper(damageClass[0]) + damageClass.Substring(1);
             Move.Categories category = Move.Categories.Parse<Move.Categories>(damageClass);
             Type moveType = ToMoveType(move?["Move"]?["Type"]!);
             moveList.Add(new Move(moveId, moveName, movePower, category, moveType));
         }
+
         return moveList;
     }
-    public Move ToMove(JToken jsonInput, bool isRoot=true)
+
+    public Move ToMove(JToken jsonInput, bool isRoot = true)
     {
-        var move = isRoot? jsonInput?["data"]?["Move"]?[0]: jsonInput;
+        var move = isRoot
+            ? jsonInput?["data"]?["Move"]?[0]
+            : jsonInput;
 
         int moveId = (int)move?["Id"]!;
         string moveName = (string)move?["Name"]!;
-        int movePower = (move?["Power"]!.Type == JTokenType.Null)? 0 : (int)move?["Power"]!;
+        int movePower = (move?["Power"]!.Type == JTokenType.Null)
+            ? 0
+            : (int)move?["Power"]!;
+
         string damageClass = (string)move?["DamageClass"]?["Name"]!;
         damageClass = char.ToUpper(damageClass[0]) + damageClass.Substring(1);
         Move.Categories category = Move.Categories.Parse<Move.Categories>(damageClass);
         Type moveType = ToMoveType(move?["Type"]!);
-        
+
         return new Move(moveId, moveName, movePower, category, moveType);
     }
+
     public Type ToMoveType(JToken type)
     {
         int typeId = (int)type?["Id"]!;
         string typeName = (string)type?["Name"]!;
         return new Type(typeId, typeName);
-    }
-
-    public List<string> ToNamesList(JToken jsonInput, string model)
-    {
-        var entities = from entity in jsonInput?["data"]?[model] select entity;
-        List<string> nameList = new List<string>();
-        foreach (JToken step in entities)
-        {
-            nameList.Add((string)step?["Name"]!);
-        }
-        return nameList;
     }
 }

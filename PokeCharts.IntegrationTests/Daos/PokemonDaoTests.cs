@@ -10,8 +10,8 @@ namespace PokeCharts.IntegrationTests.Daos;
 
 public class PokemonDaoIntegrationTests
 {
-    PokemonDao _pokemonDao;
-    IConfigurationRoot _configuration;
+    private IConfigurationRoot _configuration;
+    private PokemonDao _pokemonDao;
 
     [SetUp]
     public void OneTimeSetUp()
@@ -20,7 +20,7 @@ public class PokemonDaoIntegrationTests
             .AddJsonFile("appsettings.json")
             .Build();
 
-        _pokemonDao = new PokemonDao(_configuration,new MoveDao(_configuration),new PokemonTypeDao(_configuration));
+        _pokemonDao = new PokemonDao(_configuration, new MoveDao(_configuration), new PokemonTypeDao(_configuration));
     }
 
     [Test]
@@ -32,8 +32,9 @@ public class PokemonDaoIntegrationTests
 
         string mainUrl = urlSuffix + "25.png";
         string shinyUrl = urlSuffix + "shiny/25.png";
-        Pokemon expectedPokemon = new Pokemon(25, "pikachu", 4f, 60f, new PokemonSprites(mainUrl, shinyUrl), new Stats(35, 55, 40, 50, 50, 90),
-            new Type[] { new Type(13, "electric") });
+        var expectedPokemon = new Pokemon(25, "pikachu", 4f, 60f, new PokemonSprites(mainUrl, shinyUrl),
+            new Stats(35, 55, 40, 50, 50, 90),
+            new[] { new Type(13, "electric") });
 
         //when
         object results = _pokemonDao.Get(expectedPokemon.Id);
@@ -51,8 +52,9 @@ public class PokemonDaoIntegrationTests
 
         string mainUrl = urlSuffix + "25.png";
         string shinyUrl = urlSuffix + "shiny/25.png";
-        Pokemon expectedPokemon = new Pokemon(25, "pikachu", 4f, 60f, new PokemonSprites(mainUrl, shinyUrl), new Stats(35, 55, 40, 50, 50, 90),
-            new Type[] { new Type(13, "electric") });
+        var expectedPokemon = new Pokemon(25, "pikachu", 4f, 60f, new PokemonSprites(mainUrl, shinyUrl),
+            new Stats(35, 55, 40, 50, 50, 90),
+            new[] { new Type(13, "electric") });
 
         //when
         object results = _pokemonDao.Get(expectedPokemon.Name);
@@ -65,7 +67,7 @@ public class PokemonDaoIntegrationTests
     public void Get_NonExistentId_ThrowsException()
     {
         //given
-        int id = -1;
+        const int id = -1;
 
         //then
         Assert.Throws<PokemonNotFoundException>(() => _pokemonDao.Get(id));
@@ -75,7 +77,7 @@ public class PokemonDaoIntegrationTests
     public void Get_NonExistentName_ThrowsException()
     {
         //given
-        string name = "picachu";
+        const string name = "picachu";
 
         //then
         Assert.Throws<PokemonNotFoundException>(() => _pokemonDao.Get(name));
@@ -85,7 +87,6 @@ public class PokemonDaoIntegrationTests
     public void Get_NoParameter_ReturnsAllPokemons()
     {
         //given
-        //load the json file from the resources folder
         string expectedList = File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PokemonList.json");
 
         //when
@@ -100,7 +101,6 @@ public class PokemonDaoIntegrationTests
     public void GetLight_NominalCase_ReturnsAllPokemonNames()
     {
         //given
-        //load the json file from the resources folder
         string expectedList = File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PokemonNameList.json");
 
         //when
@@ -110,19 +110,25 @@ public class PokemonDaoIntegrationTests
         string actualList = pokemons.Select(p => p.Name).ToJson();
         Assert.That(actualList, Is.EqualTo(expectedList));
     }
+
     [Test]
     public void GetDamage_NominalCase_ReturnsDamage()
     {
         //given
-        int attackerId = 1;
-        int defenderId = 2;
-        int moveId = 1;
-        float expectedDamage = 13.6888895f;
-        float expectedMultiplier = 1f;
+        const int attackerId = 1;
+        const int defenderId = 2;
+        const int moveId = 1;
+        const float expectedDamage = 13.6888895f;
+        const float expectedMultiplier = 1f;
+
         //when
         List<float> actualDamage = _pokemonDao.GetDamage(attackerId, defenderId, moveId);
+
         //then
-        Assert.That(actualDamage[0], Is.EqualTo(expectedDamage));
-        Assert.That(actualDamage[1], Is.EqualTo(expectedMultiplier));
+        Assert.Multiple(() =>
+        {
+            Assert.That(actualDamage[0], Is.EqualTo(expectedDamage));
+            Assert.That(actualDamage[1], Is.EqualTo(expectedMultiplier));
+        });
     }
 }

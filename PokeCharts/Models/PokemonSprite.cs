@@ -1,6 +1,6 @@
 namespace PokeCharts.Models;
 
-public record PokemonSprites 
+public record PokemonSprites
 (
     string Main,
     string Shiny

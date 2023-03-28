@@ -10,7 +10,7 @@ public class SystemExceptionFilterAttribute : ExceptionFilterAttribute
     {
         // Only very predicable ones are handled here.
         // Update this list with custom exceptions that inherit from SystemException as needed.
-        [new NotImplementedException()] = HttpStatusCode.NotImplemented,
+        [new NotImplementedException()] = HttpStatusCode.NotImplemented
     };
 
     public override void OnException(ExceptionContext context)

@@ -6,10 +6,10 @@ namespace PokeCharts.IntegrationTests;
 [TestFixture]
 public class ConfigTests
 {
-    private IConfiguration _config;
-
     [SetUp]
     public void Setup() => _config = ConfigTestHelper.Configuration;
+
+    private IConfiguration _config;
 
     [Test]
     public void Section_OnlyInDefaultFile_NotEmpty()

@@ -2,9 +2,6 @@ namespace PokeCharts.Models;
 
 public class ModelReference
 {
-    public string Parameter { get; }
-    public object Id { get; }
-
     public ModelReference(object id)
     {
         Parameter = id switch
@@ -16,4 +13,7 @@ public class ModelReference
 
         Id = id;
     }
+
+    public string Parameter { get; }
+    public object Id { get; }
 }

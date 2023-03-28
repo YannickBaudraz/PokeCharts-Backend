@@ -18,7 +18,7 @@ public class MultipleModelExceptionHandlers : IModelExceptionHandler
     public HttpStatusCode? Handle(Exception exception)
     {
         return _handlers
-               .Select(handler => handler.Handle(exception))
-               .First(code => code is not null);
+            .Select(handler => handler.Handle(exception))
+            .First(code => code is not null);
     }
 }

@@ -1,4 +1,4 @@
-﻿﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using PokeCharts.Exceptions;
 using PokeCharts.GraphQl;
 using PokeCharts.Models;
@@ -16,15 +16,9 @@ public class PokemonMoveDao : IPokemonMoveDao
         _queryConverter = new QueryConverter(configuration);
     }
 
-    public List<Move> Get(int id)
-    {
-        return SendQuery(ConditionalQuery("id", id.ToString()), pokemonId: id);
-    }
+    public List<Move> Get(int id) => SendQuery(ConditionalQuery("id", id.ToString()), pokemonId: id);
 
-    public List<Move> Get(string name)
-    {
-        return SendQuery(ConditionalQuery("name", name), pokemonName: name);
-    }
+    public List<Move> Get(string name) => SendQuery(ConditionalQuery("name", name), name);
 
     private List<Move> SendQuery(string query, string? pokemonName = null, int? pokemonId = null)
     {

@@ -18,7 +18,7 @@ public class GraphQlClient
 
     private JObject SerializeResponse(string response)
     {
-        var responseJson = JObject.Parse(response);
+        JObject? responseJson = JObject.Parse(response);
 
         if (responseJson.SelectToken("errors") != null)
         {
@@ -32,7 +32,7 @@ public class GraphQlClient
     private async Task<string> Post(string query)
     {
         var content = new StringContent(query, Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync(_apiUrl, content);
+        HttpResponseMessage response = await _httpClient.PostAsync(_apiUrl, content);
 
         // Throws an exception if the HttpResponseMessage.IsSuccessStatusCode
         // Refer to SerializeResponse to know if there is an error in the query
@@ -43,14 +43,14 @@ public class GraphQlClient
 
     private async Task<JObject> SubmitQuery(string requestBody)
     {
-        var responseString = await Post(requestBody);
-        var responseJson = SerializeResponse(responseString);
+        string responseString = await Post(requestBody);
+        JObject responseJson = SerializeResponse(responseString);
         return responseJson;
     }
 
     public async Task<JObject> Execute(string query)
     {
-        var requestBody = JsonConvert.SerializeObject(new { query = query });
+        string requestBody = JsonConvert.SerializeObject(new { query });
         return await SubmitQuery(requestBody);
     }
 }

@@ -20,31 +20,28 @@ public class PokemonTypeDao : IPokemonTypeDao
     public List<Type> Get()
     {
         string query = new GraphQlQueryBuilder("")
-        .Field("Types: pokemon_v2_type", b => b
-            .Field("Id: id")
-            .Field("Name: name")
-            .Field("DamageProperties: pokemon_v2_typeefficacies", b => b
-                .Field("Factor: damage_factor")
-                .Field("OtherType: pokemonV2TypeByTargetTypeId", b => b
-                    .Field("Id: id")
-                    .Field("Name: name")
+            .Field("Types: pokemon_v2_type", b => b
+                .Field("Id: id")
+                .Field("Name: name")
+                .Field("DamageProperties: pokemon_v2_typeefficacies", b => b
+                    .Field("Factor: damage_factor")
+                    .Field("OtherType: pokemonV2TypeByTargetTypeId", b => b
+                        .Field("Id: id")
+                        .Field("Name: name")
+                    )
                 )
-            )
-        ).Build();
+            ).Build();
+
         return SendQuery(query);
     }
 
-    public Type Get(int id)
-    {
-        return SendQuery(ConditionalQuery("id", id.ToString())).FirstOrDefault()
-                    ?? throw new TypeNotFoundException(new ModelReference(id));
-    }
+    public Type Get(int id) =>
+        SendQuery(ConditionalQuery("id", id.ToString())).FirstOrDefault()
+        ?? throw new TypeNotFoundException(new ModelReference(id));
 
-    public Type Get(string name)
-    {
-        return SendQuery(ConditionalQuery("name", name)).FirstOrDefault()
-                    ?? throw new TypeNotFoundException(new ModelReference(name));
-    } 
+    public Type Get(string name) =>
+        SendQuery(ConditionalQuery("name", name)).FirstOrDefault()
+        ?? throw new TypeNotFoundException(new ModelReference(name));
 
     private List<Type> SendQuery(string query)
     {
@@ -55,21 +52,20 @@ public class PokemonTypeDao : IPokemonTypeDao
     public string ConditionalQuery(string field, string value)
     {
         return new GraphQlQueryBuilder("")
-        .FieldWithArguments("Types: pokemon_v2_type", b => b
-            .Argument("where", b => b
-                .Argument(field, b => b
-                    .ArgumentCondition("_eq", value)))
+            .FieldWithArguments("Types: pokemon_v2_type", b => b
+                .Argument("where", b => b
+                    .Argument(field, b => b
+                        .ArgumentCondition("_eq", value)))
                 .EndArguments()
-            .Field("Id: id")
-            .Field("Name: name")
-            .Field("DamageProperties: pokemon_v2_typeefficacies", b => b
-                .Field("Factor: damage_factor")
-                .Field("OtherType: pokemonV2TypeByTargetTypeId", b => b
-                    .Field("Id: id")
-                    .Field("Name: name")
+                .Field("Id: id")
+                .Field("Name: name")
+                .Field("DamageProperties: pokemon_v2_typeefficacies", b => b
+                    .Field("Factor: damage_factor")
+                    .Field("OtherType: pokemonV2TypeByTargetTypeId", b => b
+                        .Field("Id: id")
+                        .Field("Name: name")
+                    )
                 )
-            )
-        ).Build();
+            ).Build();
     }
-    
 }

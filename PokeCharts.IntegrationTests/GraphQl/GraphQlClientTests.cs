@@ -12,7 +12,7 @@ public class GraphQlClientTest
     // Checks that the returned data are those expected
     private static int? GetPokemonId(JObject jsonOutput)
     {
-        var pokemons = from pokemon in jsonOutput["data"]?["pokemon_v2_pokemon"] select pokemon;
+        IEnumerable<JToken> pokemons = from pokemon in jsonOutput["data"]?["pokemon_v2_pokemon"] select pokemon;
         JToken? firstPokemon = pokemons.FirstOrDefault();
         return firstPokemon?["id"]?.Value<int>();
     }
@@ -21,14 +21,14 @@ public class GraphQlClientTest
     public void Execute_CorrectQuerySyntax_Success()
     {
         // given
-        string query = @"query {
+        const string query = @"query {
                 pokemon_v2_pokemon(limit: 3, order_by: {id: asc}) {
                     id
                 }
             }";
 
         // when
-        var result = _client.Execute(query).Result;
+        JObject result = _client.Execute(query).Result;
 
         // then
         Assert.That(GetPokemonId(result), Is.EqualTo(1));
@@ -38,33 +38,33 @@ public class GraphQlClientTest
     public void Execute_NullQuery_ThrowsException()
     {
         // given
-        string query = "";
+        const string query = "";
 
         // when
         var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
         // Then
-        Assert.IsNotNull(exception?.Message);
+        Assert.That(exception?.Message, Is.Not.Null);
     }
 
     [Test]
     public void Execute_IncorrectQuerySyntax_ThrowsException()
     {
         // given
-        string query = "Invalid query";
+        const string query = "Invalid query";
 
         // when
         var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
         // Then
-        Assert.IsNotNull(exception?.Message);
+        Assert.That(exception?.Message, Is.Not.Null);
     }
 
     [Test]
     public void Execute_QueryContainsNonExistentField_ThrowsException()
     {
         // given            
-        string query = @"query {
+        const string query = @"query {
                 non_existent_field(limit: 3, order_by: {id: asc}) {
                     id
                 }
@@ -74,6 +74,6 @@ public class GraphQlClientTest
         var exception = Assert.ThrowsAsync<Exception>(() => _client.Execute(query));
 
         // Then
-        Assert.IsNotNull(exception?.Message);
+        Assert.That(exception?.Message, Is.Not.Null);
     }
 }

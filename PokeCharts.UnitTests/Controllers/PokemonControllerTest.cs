@@ -11,9 +11,6 @@ namespace PokeCharts.UnitTests.Controllers;
 [TestFixture]
 public class PokemonControllerTest
 {
-    private PokemonsController _pokemonsController;
-    private Mock<IPokemonDao> _pokemonDaoMock;
-
     [SetUp]
     public void OneTimeSetUp()
     {
@@ -21,12 +18,15 @@ public class PokemonControllerTest
         _pokemonsController = new PokemonsController(_pokemonDaoMock.Object);
     }
 
+    private PokemonsController _pokemonsController;
+    private Mock<IPokemonDao> _pokemonDaoMock;
+
     [Test]
     public void Get_NoParameter_ReturnsAllPokemons()
     {
         //given
         Stats stats = new(1, 2, 3, 4, 5, 6);
-        Type[] types = new[] { new Type(2, "fire"), new Type(1, "water") };
+        Type[] types = { new Type(2, "fire"), new Type(1, "water") };
         PokemonSprites sprites = new("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png");
 

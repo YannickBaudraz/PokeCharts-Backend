@@ -14,8 +14,8 @@ public static class ProblemDetails
         var problemDetailsFactory = context.HttpContext.RequestServices.GetRequiredService<ProblemDetailsFactory>();
         return problemDetailsFactory.CreateProblemDetails(
             context.HttpContext,
-            statusCode: (int)statusCode,
-            title: GetTitle(context.Exception),
+            (int)statusCode,
+            GetTitle(context.Exception),
             detail: context.Exception.Message,
             instance: context.HttpContext.Request.Path
         );
@@ -32,8 +32,8 @@ public static class ProblemDetails
         var problemDetailsFactory = httpContext.RequestServices.GetRequiredService<ProblemDetailsFactory>();
         return problemDetailsFactory.CreateProblemDetails(
             httpContext,
-            statusCode: responseStatusCode,
-            title: GetTitle(responseStatusCode),
+            responseStatusCode,
+            GetTitle(responseStatusCode),
             instance: httpContext.Request.Path
         );
     }

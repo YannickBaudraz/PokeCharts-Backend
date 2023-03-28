@@ -13,9 +13,12 @@ namespace PokeCharts;
 
 public class Startup
 {
-    private IConfiguration Configuration { get; }
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
 
-    public Startup(IConfiguration configuration) => Configuration = configuration;
+    private IConfiguration Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {

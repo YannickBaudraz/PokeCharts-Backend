@@ -17,6 +17,7 @@ public class PokemonMovesController : ControllerBase
 
     [HttpGet("{pokemonId:int}")]
     public ActionResult<List<Move>> GetAll(int pokemonId) => _moveDao.Get(pokemonId);
+
     [HttpGet("{pokemonName}")]
     public ActionResult<List<Move>> GetAll(string pokemonName) => _moveDao.Get(pokemonName);
 }

@@ -7,15 +7,15 @@ namespace PokeCharts.UnitTests.Model;
 public class PokemonTests
 {
     // Required attributes to create a pokemon
-    private int _id = 6;
-    private string _name = "charizard";
-    private float _height = 17;
-    private float _weight = 905;
-    private PokemonSprites _sprites = new PokemonSprites("25.png", "shiny/25.png");
-    private Stats _stat = new Stats(78, 84, 78, 109, 85, 100);
-    private Type _firstType = new Type(10, "fire");
-    private Type _secondType = new Type(3, "flying");
-    private Type _thirdType = new Type(100, "poison");
+    private readonly int _id = 6;
+    private readonly string _name = "charizard";
+    private readonly float _height = 17;
+    private readonly float _weight = 905;
+    private readonly PokemonSprites _sprites = new("25.png", "shiny/25.png");
+    private readonly Stats _stat = new(78, 84, 78, 109, 85, 100);
+    private readonly Type _firstType = new(10, "fire");
+    private readonly Type _secondType = new(3, "flying");
+    private readonly Type _thirdType = new(100, "poison");
 
 
     [Test]
@@ -29,7 +29,7 @@ public class PokemonTests
         // Then
         Assert.DoesNotThrow(() =>
         {
-            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
+            var pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
         });
     }
 
@@ -45,7 +45,7 @@ public class PokemonTests
 
         Assert.Throws<ArgumentException>(() =>
         {
-            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
+            var pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
         });
     }
 
@@ -61,7 +61,7 @@ public class PokemonTests
 
         Assert.Throws<ArgumentException>(() =>
         {
-            Pokemon pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
+            var pokemon = new Pokemon(_id, _name, _height, _weight, _sprites, _stat, pokemonTypes);
         });
     }
 }

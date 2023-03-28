@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PokeCharts.Daos;
-using PokeCharts.Models;
-using System.Xml.Linq;
 using Type = PokeCharts.Models.Type;
 
 namespace PokeCharts.Controllers;

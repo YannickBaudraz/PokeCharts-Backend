@@ -2,20 +2,18 @@ using Microsoft.Extensions.Configuration;
 using NuGet.Protocol;
 using PokeCharts.Daos;
 using PokeCharts.Exceptions;
-using PokeCharts.Models;
 using Type = PokeCharts.Models.Type;
-
 
 namespace PokeCharts.IntegrationTests.Daos;
 
 public class TypeDaoIntegrationTests
 {
-    PokemonTypeDao _typeDao;
-    IConfigurationRoot _configuration;
+    private IConfigurationRoot _configuration;
 
 
-    int _flyingId = 3;
-    string _fylingName = "flying";
+    private readonly int _flyingId = 3;
+    private readonly string _fylingName = "flying";
+    private PokemonTypeDao _typeDao;
 
     [SetUp]
     public void OneTimeSetUp()
@@ -32,7 +30,7 @@ public class TypeDaoIntegrationTests
     {
         // given
         // load the json file from the resources folder
-        string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/TypesList.json");
+        string expectedList = File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/TypesList.json");
 
         // when
         List<Type> types = _typeDao.Get();
@@ -47,7 +45,7 @@ public class TypeDaoIntegrationTests
     {
         // given
         // load the json file from the resources folder
-        string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/FlyingType.json");
+        string expectedList = File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/FlyingType.json");
 
         // when
         Type types = _typeDao.Get(_flyingId);
@@ -62,7 +60,7 @@ public class TypeDaoIntegrationTests
     {
         // given
         // load the json file from the resources folder
-        string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/FlyingType.json");
+        string expectedList = File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/FlyingType.json");
 
         // when
         Type types = _typeDao.Get(_fylingName);
@@ -76,7 +74,8 @@ public class TypeDaoIntegrationTests
     public void Get_NonExistentName_ThrowsException()
     {
         //given
-        string name = "flyiing";
+        const string name = "flyiing";
+
         //then
         Assert.Throws<TypeNotFoundException>(() => _typeDao.Get(name));
     }
@@ -85,9 +84,9 @@ public class TypeDaoIntegrationTests
     public void Get_NonExistentId_ThrowsException()
     {
         //given
-        int id = -1;
+        const int id = -1;
+
         //then
         Assert.Throws<TypeNotFoundException>(() => _typeDao.Get(id));
     }
-
 }

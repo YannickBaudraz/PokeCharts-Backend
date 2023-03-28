@@ -2,15 +2,13 @@ using Microsoft.Extensions.Configuration;
 using NuGet.Protocol;
 using PokeCharts.Daos;
 using PokeCharts.Exceptions;
-using PokeCharts.Models;
-using Type = PokeCharts.Models.Type;
 
 namespace PokeCharts.IntegrationTests.Daos;
 
 public class MoveDaoIntegrationTests
 {
-    PokemonMoveDao _moveDao;
-    IConfigurationRoot _configuration;
+    private IConfigurationRoot _configuration;
+    private PokemonMoveDao _moveDao;
 
     [SetUp]
     public void OneTimeSetUp()
@@ -26,20 +24,21 @@ public class MoveDaoIntegrationTests
     public void Get_ExistingId_ReturnsMoves()
     {
         //given
-        int id = 25;
-        string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PikachuMoves.json");
+        const int id = 25;
+        string expectedList = File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PikachuMoves.json");
 
         //when
         object results = _moveDao.Get(id);
         //then
         Assert.That(expectedList, Is.EqualTo(results.ToJson()));
     }
+
     [Test]
     public void Get_ExistingName_ReturnsMoves()
     {
         //given
-        string name = "pikachu";
-        string expectedList = System.IO.File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PikachuMoves.json");
+        const string name = "pikachu";
+        string expectedList = File.ReadAllText(@"../../../../PokeCharts.UnitTests/Resources/PikachuMoves.json");
 
         //when
         object results = _moveDao.Get(name).ToJson();
@@ -51,7 +50,7 @@ public class MoveDaoIntegrationTests
     public void Get_NonExistentId_ThrowsException()
     {
         //given
-        int id = -1;
+        const int id = -1;
         //then
         Assert.Throws<PokemonNotFoundException>(() => _moveDao.Get(id));
     }
@@ -60,7 +59,8 @@ public class MoveDaoIntegrationTests
     public void Get_NonExistentName_ThrowsException()
     {
         //given
-        string name = "picachu";
+        const string name = "picachu";
+
         //then
         Assert.Throws<PokemonNotFoundException>(() => _moveDao.Get(name));
     }

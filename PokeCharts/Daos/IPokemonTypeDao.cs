@@ -1,5 +1,4 @@
-﻿using PokeCharts.Models;
-using Type = PokeCharts.Models.Type;
+﻿using Type = PokeCharts.Models.Type;
 
 namespace PokeCharts.Daos;
 

@@ -2,24 +2,25 @@
 
 public class Type
 {
-    public int id { get; }
-    public string name { get; }
-    public List<Type>? doubleDamageTo { get; private set; } = null;
-    public List<Type>? halfDamageTo { get; private set; } = null;
-    public List<Type>? noDamageTo { get; private set; } = null;
-
     public Type(int id, string name)
     {
         this.id = id;
         this.name = name;
     }
-    
+
     public Type(int id, string name, List<Type> doubleDamageTo, List<Type> halfDamageTo, List<Type> noDamageTo)
     {
         this.id = id;
         this.name = name;
         AddDamageProperties(doubleDamageTo, halfDamageTo, noDamageTo);
     }
+
+    public int id { get; }
+    public string name { get; }
+    public List<Type>? doubleDamageTo { get; private set; }
+    public List<Type>? halfDamageTo { get; private set; }
+    public List<Type>? noDamageTo { get; private set; }
+
     public void AddDamageProperties(List<Type> doubleDamageTo, List<Type> halfDamageTo, List<Type> noDamageTo)
     {
         this.doubleDamageTo = doubleDamageTo;

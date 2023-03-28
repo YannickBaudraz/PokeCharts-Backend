@@ -10,8 +10,5 @@ public class PokemonsFilter
 
     public int? ConditionValue { get; set; }
 
-    public bool IsNotEmpty()
-    {
-        return Types is not null || Stat is not null || Conditions is not null || ConditionValue is not null;
-    }
+    public bool IsNotEmpty() => Types is not null || Stat is not null || Conditions is not null || ConditionValue is not null;
 }

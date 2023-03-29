@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using PokeCharts.Exceptions;
-using PokeCharts.Handlers.Exceptions;
+using PokeCharts.Exceptions.Handlers.Exceptions;
 using MvcExtensions = PokeCharts.Extensions.Microsoft.AspNetCore.Mvc;
 
-namespace PokeCharts.Filters;
+namespace PokeCharts.Exceptions.Filters;
 
 public class ModelExceptionFilterAttribute : ExceptionFilterAttribute
 {

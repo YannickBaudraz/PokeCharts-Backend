@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PokeCharts.Controllers;
 using PokeCharts.Daos;
+using PokeCharts.Exceptions.Filters;
+using PokeCharts.Exceptions.Handlers.Exceptions;
 using PokeCharts.Extensions.Microsoft.AspNetCore.Diagnostics;
 using PokeCharts.Extensions.Microsoft.AspNetCore.Mvc;
 using PokeCharts.Extensions.Microsoft.Extensions.DependencyInjection;
-using PokeCharts.Filters;
-using PokeCharts.Handlers.Exceptions;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 

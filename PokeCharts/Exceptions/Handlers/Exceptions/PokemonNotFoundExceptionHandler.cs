@@ -1,7 +1,6 @@
 using System.Net;
-using PokeCharts.Exceptions;
 
-namespace PokeCharts.Handlers.Exceptions;
+namespace PokeCharts.Exceptions.Handlers.Exceptions;
 
 public class PokemonNotFoundExceptionHandler : ModelExceptionHandlerBase
 {

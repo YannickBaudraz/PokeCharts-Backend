@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace PokeCharts.Handlers.Exceptions;
+namespace PokeCharts.Exceptions.Handlers.Exceptions;
 
 public abstract class ModelExceptionHandlerBase : IModelExceptionHandler
 {

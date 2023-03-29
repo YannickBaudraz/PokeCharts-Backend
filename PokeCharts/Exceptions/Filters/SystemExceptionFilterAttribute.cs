@@ -2,7 +2,7 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace PokeCharts.Filters;
+namespace PokeCharts.Exceptions.Filters;
 
 public class SystemExceptionFilterAttribute : ExceptionFilterAttribute
 {

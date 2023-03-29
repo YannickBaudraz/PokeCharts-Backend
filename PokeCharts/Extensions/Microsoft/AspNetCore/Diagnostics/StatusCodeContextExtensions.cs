@@ -5,6 +5,10 @@ namespace PokeCharts.Extensions.Microsoft.AspNetCore.Diagnostics;
 
 public static class StatusCodeContextExtensions
 {
+    /// <summary>
+    ///     Writes the <see cref="ProblemDetails" /> as JSON to the response.
+    /// </summary>
+    /// <param name="statusCodeContext"></param>
     public static async Task WriteProblemDetailsAsJsonAsync(this StatusCodeContext statusCodeContext)
     {
         int responseStatusCode = statusCodeContext.HttpContext.Response.StatusCode;

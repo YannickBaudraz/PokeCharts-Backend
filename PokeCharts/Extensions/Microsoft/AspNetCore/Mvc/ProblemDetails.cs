@@ -9,6 +9,13 @@ namespace PokeCharts.Extensions.Microsoft.AspNetCore.Mvc;
 
 public static class ProblemDetails
 {
+    /// <summary>
+    ///     Creates a <see cref="global::Microsoft.AspNetCore.Mvc.ProblemDetails" /> from an <see cref="ExceptionContext" />
+    ///     and <see cref="HttpStatusCode" />
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="statusCode"></param>
+    /// <returns></returns>
     public static global::Microsoft.AspNetCore.Mvc.ProblemDetails From(ExceptionContext context, HttpStatusCode statusCode)
     {
         var problemDetailsFactory = context.HttpContext.RequestServices.GetRequiredService<ProblemDetailsFactory>();
@@ -21,6 +28,11 @@ public static class ProblemDetails
         );
     }
 
+    /// <summary>
+    ///     Creates a <see cref="global::Microsoft.AspNetCore.Mvc.ProblemDetails" /> from a <see cref="StatusCodeContext" />
+    /// </summary>
+    /// <param name="statusCodeContext"></param>
+    /// <returns></returns>
     public static global::Microsoft.AspNetCore.Mvc.ProblemDetails? From(StatusCodeContext statusCodeContext)
     {
         int responseStatusCode = statusCodeContext.HttpContext.Response.StatusCode;

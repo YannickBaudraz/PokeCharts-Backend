@@ -35,10 +35,12 @@ public class PokemonTypeDao : IPokemonTypeDao
         return SendQuery(query);
     }
 
+    /// <exception cref="TypeNotFoundException"></exception>
     public Type Get(int id) =>
         SendQuery(ConditionalQuery("id", id.ToString())).FirstOrDefault()
         ?? throw new TypeNotFoundException(new ModelReference(id));
 
+    /// <exception cref="TypeNotFoundException"></exception>
     public Type Get(string name) =>
         SendQuery(ConditionalQuery("name", name)).FirstOrDefault()
         ?? throw new TypeNotFoundException(new ModelReference(name));
@@ -49,7 +51,7 @@ public class PokemonTypeDao : IPokemonTypeDao
         return _queryConverter.ToTypes(result);
     }
 
-    public string ConditionalQuery(string field, string value)
+    private string ConditionalQuery(string field, string value)
     {
         return new GraphQlQueryBuilder("")
             .FieldWithArguments("Types: pokemon_v2_type", b => b

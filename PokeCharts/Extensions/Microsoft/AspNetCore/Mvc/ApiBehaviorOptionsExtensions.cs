@@ -7,6 +7,10 @@ namespace PokeCharts.Extensions.Microsoft.AspNetCore.Mvc;
 
 public static class ApiBehaviorOptionsExtensions
 {
+    /// <summary>
+    ///     Configures the <see cref="ApiBehaviorOptions" /> to use the <see cref="Rfc.Http.Status.Error" /> enum
+    /// </summary>
+    /// <param name="options"></param>
     public static void ConfigureClientErrorMapping(this ApiBehaviorOptions options)
     {
         IEnumerable<int> errorCodes = Enum.GetValues<Rfc.Http.Status.Error>().Cast<int>();

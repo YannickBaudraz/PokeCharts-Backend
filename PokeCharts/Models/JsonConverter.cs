@@ -2,6 +2,9 @@ using Newtonsoft.Json.Linq;
 
 namespace PokeCharts.Models;
 
+/// <summary>
+///     Converts a JSON object to a model.
+/// </summary>
 public class QueryConverter
 {
     public enum Models
@@ -18,6 +21,7 @@ public class QueryConverter
         _configuration = configuration;
     }
 
+    /// <exception cref="ArgumentException">Thrown if the GraphQL sprite suffix is not configured.</exception>
     public List<Pokemon> ToPokemons(JObject jsonInput, bool isRoot = true)
     {
         IEnumerable<JToken> pokemons = isRoot
@@ -67,7 +71,6 @@ public class QueryConverter
 
         foreach (JToken stat in stats)
         {
-            var statsId = (int)stat?["Stat"]?["Id"]!;
             var statsName = (string)stat?["Stat"]?["Name"]!;
             var statsBaseStat = (int)stat?["BaseStat"]!;
 

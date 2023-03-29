@@ -1,5 +1,8 @@
 namespace PokeCharts.Requests;
 
+/// <summary>
+///     Represents a filter for the pokemons.
+/// </summary>
 public class PokemonsFilter
 {
     public string? Types { get; set; }

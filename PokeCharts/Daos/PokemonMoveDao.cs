@@ -20,6 +20,7 @@ public class PokemonMoveDao : IPokemonMoveDao
 
     public List<Move> Get(string name) => SendQuery(ConditionalQuery("name", name), name);
 
+    /// <exception cref="PokemonNotFoundException" />
     private List<Move> SendQuery(string query, string? pokemonName = null, int? pokemonId = null)
     {
         JObject result = _client.Execute(query).Result;

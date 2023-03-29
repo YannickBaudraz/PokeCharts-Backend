@@ -48,6 +48,11 @@ public class GraphQlClient
         return responseJson;
     }
 
+    /// <summary>
+    ///     Executes a GraphQL query.
+    /// </summary>
+    /// <param name="query"></param>
+    /// <returns></returns>
     public async Task<JObject> Execute(string query)
     {
         string requestBody = JsonConvert.SerializeObject(new { query });

@@ -3,7 +3,7 @@ using System.Text;
 namespace PokeCharts.GraphQl;
 
 /// <summary>
-///     GraphQlQueryBuilder is a class that allows for building GraphQL queries in a fluent and readable way.
+///     Builds GraphQL queries in a fluent and readable way.
 /// </summary>
 public class GraphQlQueryBuilder
 {

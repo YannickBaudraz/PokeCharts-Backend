@@ -54,10 +54,16 @@ dotnet build
 dotnet run
 ```
 
-### Run Unit Tests
+### Run Tests
 
+To simply check that all tests pass
 ```shell
 dotnet test
+```
+
+To get the test details
+```shell
+dotnet test --logger:"console;verbosity=detailed"
 ```
 
 ## Branches strategy

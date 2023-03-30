@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2"/>
+        <PackageReference Include="Moq" Version="4.18.4"/>
+        <PackageReference Include="NUnit" Version="3.13.3"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1"/>
+        <PackageReference Include="NUnit.Analyzers" Version="3.3.0"/>
+        <PackageReference Include="coverlet.collector" Version="3.1.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\PokeCharts\PokeCharts.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Resources\simple_query.txt"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\GraphQlQueries\SimpleQuery.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Resources\GraphQlQueries\QueryWithSimpleCondition.txt"/>
+        <EmbeddedResource Include="Resources\GraphQlQueries\QueryWithSimpleCondition.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Resources\GraphQlQueries\ComplexQuery.txt"/>
+        <EmbeddedResource Include="Resources\GraphQlQueries\ComplexQuery.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Resources\GraphQlQueries\QueryWithAliases.txt"/>
+        <EmbeddedResource Include="Resources\GraphQlQueries\QueryWithAliases.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="TypeControllerUnitTests.cs"/>
+    </ItemGroup>
+
+</Project>
